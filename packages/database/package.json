@@ -1,0 +1,14 @@
+{
+  "name": "@wci/database",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0"
+  }
+}

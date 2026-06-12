@@ -1,0 +1,476 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MatchStatus {
+  SCHEDULED
+  LIVE
+  FINISHED
+  POSTPONED
+  CANCELLED
+}
+
+enum LineupStatus {
+  EXPECTED
+  CONFIRMED
+}
+
+enum ModelStatus {
+  DRAFT
+  VALIDATED
+  ACTIVE
+  RETIRED
+}
+
+model Team {
+  id               String           @id @default(uuid())
+  fifaCode         String?          @unique
+  countryCode      String
+  nameEn           String
+  nameZh           String
+  crestUrl         String?
+  isNationalTeam   Boolean          @default(true)
+  players          Player[]
+  homeMatches      Match[]          @relation("HomeTeam")
+  awayMatches      Match[]          @relation("AwayTeam")
+  tournamentTeams  TournamentTeam[]
+  ratings          TeamRating[]
+  injuries         Injury[]
+  lineups          Lineup[]
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model Player {
+  id          String         @id @default(uuid())
+  teamId      String?
+  team        Team?          @relation(fields: [teamId], references: [id])
+  name        String
+  position    String?
+  birthDate   DateTime?
+  clubName    String?
+  ratings     PlayerRating[]
+  injuries    Injury[]
+  lineups     LineupPlayer[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Venue {
+  id          String   @id @default(uuid())
+  nameEn      String
+  nameZh      String
+  cityEn      String
+  cityZh      String
+  countryCode String
+  latitude    Float
+  longitude   Float
+  altitudeM   Float?
+  matches     Match[]
+}
+
+model Tournament {
+  id              String           @id @default(uuid())
+  nameEn          String
+  nameZh          String
+  season          String
+  formatVersion   String
+  startsAt        DateTime
+  endsAt          DateTime
+  groups          Group[]
+  matches         Match[]
+  teams           TournamentTeam[]
+  simulations     Simulation[]
+  createdAt       DateTime         @default(now())
+}
+
+model Group {
+  id           String           @id @default(uuid())
+  tournamentId String
+  tournament   Tournament       @relation(fields: [tournamentId], references: [id])
+  code         String
+  rulesJson    Json
+  teams        TournamentTeam[]
+  matches      Match[]
+
+  @@unique([tournamentId, code])
+}
+
+model TournamentTeam {
+  tournamentId String
+  teamId       String
+  groupId      String?
+  seed         Int?
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  team         Team       @relation(fields: [teamId], references: [id])
+  group        Group?     @relation(fields: [groupId], references: [id])
+
+  @@id([tournamentId, teamId])
+}
+
+model Match {
+  id                       String                 @id @default(uuid())
+  tournamentId             String
+  groupId                  String?
+  homeTeamId               String
+  awayTeamId               String
+  venueId                  String?
+  tournament               Tournament             @relation(fields: [tournamentId], references: [id])
+  group                    Group?                 @relation(fields: [groupId], references: [id])
+  homeTeam                 Team                   @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeam                 Team                   @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  venue                    Venue?                 @relation(fields: [venueId], references: [id])
+  stage                    String
+  kickoffAt                DateTime
+  status                   MatchStatus
+  result                   MatchResult?
+  lineups                  Lineup[]
+  odds                     Odd[]
+  predictionMarkets        PredictionMarket[]
+  featureSnapshots         FeatureSnapshot[]
+  sourceSnapshots          SourceSnapshot[]
+  predictions              ModelPrediction[]
+  chatMessages             ChatMessage[]
+  createdAt                DateTime               @default(now())
+  updatedAt                DateTime               @updatedAt
+
+  @@index([kickoffAt, status])
+  @@index([tournamentId, stage])
+}
+
+model MatchResult {
+  matchId       String   @id
+  match         Match    @relation(fields: [matchId], references: [id])
+  homeGoals90   Int
+  awayGoals90   Int
+  extraTimeJson Json?
+  penaltiesJson Json?
+  confirmedAt   DateTime
+}
+
+model Lineup {
+  id          String        @id @default(uuid())
+  matchId     String
+  teamId      String
+  status      LineupStatus
+  announcedAt DateTime?
+  sourceId    String?
+  match       Match         @relation(fields: [matchId], references: [id])
+  team        Team          @relation(fields: [teamId], references: [id])
+  players     LineupPlayer[]
+}
+
+model LineupPlayer {
+  lineupId        String
+  playerId        String
+  starter         Boolean
+  position        String?
+  expectedMinutes Int?
+  lineup          Lineup @relation(fields: [lineupId], references: [id])
+  player          Player @relation(fields: [playerId], references: [id])
+
+  @@id([lineupId, playerId])
+}
+
+model Injury {
+  id          String   @id @default(uuid())
+  playerId    String?
+  teamId      String
+  status      String
+  details     String?
+  reportedAt  DateTime
+  availableAt DateTime
+  confidence  Float
+  player      Player?  @relation(fields: [playerId], references: [id])
+  team        Team     @relation(fields: [teamId], references: [id])
+}
+
+model TeamRating {
+  id             String        @id @default(uuid())
+  teamId         String
+  modelVersionId String?
+  ratingType     String
+  value          Float
+  attack         Float?
+  defense        Float?
+  asOf           DateTime
+  team           Team          @relation(fields: [teamId], references: [id])
+  modelVersion   ModelVersion? @relation(fields: [modelVersionId], references: [id])
+
+  @@index([teamId, ratingType, asOf(sort: Desc)])
+}
+
+model PlayerRating {
+  id          String   @id @default(uuid())
+  playerId    String
+  ratingType  String
+  value       Float
+  uncertainty Float?
+  asOf        DateTime
+  player      Player   @relation(fields: [playerId], references: [id])
+}
+
+model FeatureSnapshot {
+  id            String            @id @default(uuid())
+  matchId       String
+  cutoffAt      DateTime
+  schemaVersion String
+  featuresJson  Json
+  contentHash   String            @unique
+  match         Match             @relation(fields: [matchId], references: [id])
+  predictions   ModelPrediction[]
+}
+
+model SourceSnapshot {
+  id           String            @id @default(uuid())
+  matchId      String
+  cutoffAt     DateTime
+  sourcesJson  Json
+  contentHash  String            @unique
+  match        Match             @relation(fields: [matchId], references: [id])
+  predictions  ModelPrediction[]
+}
+
+model ModelVersion {
+  id                   String            @id @default(uuid())
+  name                 String
+  family               String
+  semanticVersion      String
+  gitSha               String
+  trainedThrough       DateTime
+  artifactUri          String?
+  featureSchemaVersion String
+  status               ModelStatus
+  predictions          ModelPrediction[]
+  metrics              ModelMetric[]
+  ratings              TeamRating[]
+  backtests            BacktestRun[]
+  simulations          Simulation[]
+
+  @@unique([name, semanticVersion])
+}
+
+model ModelPrediction {
+  id                String          @id @default(uuid())
+  matchId           String
+  modelVersionId    String
+  featureSnapshotId String
+  sourceSnapshotId  String
+  generatedAt       DateTime        @default(now())
+  cutoffAt          DateTime
+  homeWin           Float
+  draw              Float
+  awayWin           Float
+  homeXg            Float
+  awayXg            Float
+  scorelinesJson    Json
+  advanceJson       Json?
+  confidence        Float
+  intervalsJson     Json?
+  explanationJson   Json
+  match             Match           @relation(fields: [matchId], references: [id])
+  modelVersion      ModelVersion    @relation(fields: [modelVersionId], references: [id])
+  featureSnapshot   FeatureSnapshot @relation(fields: [featureSnapshotId], references: [id])
+  sourceSnapshot    SourceSnapshot  @relation(fields: [sourceSnapshotId], references: [id])
+
+  @@unique([matchId, modelVersionId, cutoffAt])
+  @@index([matchId, generatedAt(sort: Desc)])
+}
+
+model ModelMetric {
+  id             String       @id @default(uuid())
+  modelVersionId String
+  scope          String
+  windowStart    DateTime
+  windowEnd      DateTime
+  logLoss        Float
+  brier          Float
+  rps            Float
+  ece            Float
+  accuracy       Float
+  precisionJson  Json
+  recallJson     Json
+  f1Json         Json
+  roi            Float?
+  clv            Float?
+  sampleSize     Int
+  modelVersion   ModelVersion @relation(fields: [modelVersionId], references: [id])
+}
+
+model BacktestRun {
+  id             String       @id @default(uuid())
+  modelVersionId String
+  strategy       String
+  startedAt      DateTime
+  completedAt    DateTime?
+  configJson     Json
+  resultUri      String?
+  modelVersion   ModelVersion @relation(fields: [modelVersionId], references: [id])
+}
+
+model Odd {
+  id                 String     @id @default(uuid())
+  matchId            String
+  providerId         String
+  marketType         String
+  selection          String
+  decimalOdds        Float
+  impliedProbability Float
+  noVigProbability   Float
+  observedAt         DateTime
+  availableAt        DateTime
+  isOpening          Boolean    @default(false)
+  isClosing          Boolean    @default(false)
+  match              Match      @relation(fields: [matchId], references: [id])
+  provider           DataSource @relation(fields: [providerId], references: [id])
+
+  @@index([matchId, observedAt(sort: Desc)])
+}
+
+model PredictionMarket {
+  id                String                 @id @default(uuid())
+  matchId           String
+  providerId        String
+  externalMarketId  String
+  title             String
+  resolutionRules   String
+  status            String
+  match             Match                  @relation(fields: [matchId], references: [id])
+  provider          DataSource             @relation(fields: [providerId], references: [id])
+  ticks             PredictionMarketTick[]
+
+  @@unique([providerId, externalMarketId])
+}
+
+model PredictionMarketTick {
+  id          String           @id @default(uuid())
+  marketId    String
+  outcome     String
+  bestBid     Float?
+  bestAsk     Float?
+  lastPrice   Float?
+  volume      Float?
+  liquidity   Float?
+  spread      Float?
+  observedAt  DateTime
+  market      PredictionMarket @relation(fields: [marketId], references: [id])
+
+  @@index([marketId, observedAt(sort: Desc)])
+}
+
+model NewsItem {
+  id                 String     @id @default(uuid())
+  providerId         String
+  url                String
+  title              String
+  bodyExcerpt        String?
+  publishedAt        DateTime
+  availableAt        DateTime
+  language           String
+  credibility        Float
+  verificationStatus String
+  provider           DataSource @relation(fields: [providerId], references: [id])
+
+  @@unique([providerId, url])
+  @@index([availableAt, verificationStatus])
+}
+
+model SocialSignal {
+  id                 String     @id @default(uuid())
+  providerId         String
+  externalId         String
+  publishedAt        DateTime
+  availableAt        DateTime
+  credibility        Float
+  sentiment          Float
+  entitiesJson       Json
+  verificationStatus String
+  contentHash        String
+  provider           DataSource @relation(fields: [providerId], references: [id])
+
+  @@unique([providerId, externalId])
+}
+
+model DataSource {
+  id             String                 @id @default(uuid())
+  key            String                 @unique
+  name           String
+  category       String
+  licenseUrl     String?
+  termsUrl       String?
+  priority       Int                    @default(100)
+  enabled        Boolean                @default(true)
+  odds           Odd[]
+  markets        PredictionMarket[]
+  news           NewsItem[]
+  socialSignals  SocialSignal[]
+  mappings       ProviderEntityMapping[]
+  ingestionRuns  IngestionRun[]
+}
+
+model ProviderEntityMapping {
+  providerId String
+  entityType String
+  externalId String
+  internalId String
+  confidence Float
+  provider   DataSource @relation(fields: [providerId], references: [id])
+
+  @@id([providerId, entityType, externalId])
+}
+
+model IngestionRun {
+  id             String     @id @default(uuid())
+  providerId     String
+  jobType        String
+  startedAt      DateTime
+  completedAt    DateTime?
+  status         String
+  recordsRead    Int        @default(0)
+  recordsWritten Int        @default(0)
+  errorSummary   String?
+  rawArtifactUri String?
+  provider       DataSource @relation(fields: [providerId], references: [id])
+}
+
+model Simulation {
+  id                  String        @id @default(uuid())
+  tournamentId        String
+  modelVersionId      String
+  predictionCutoff    DateTime
+  iterations          Int
+  seed                Int
+  scenarioJson        Json
+  resultJson          Json
+  createdBySession    String?
+  createdAt           DateTime      @default(now())
+  tournament          Tournament    @relation(fields: [tournamentId], references: [id])
+  modelVersion        ModelVersion  @relation(fields: [modelVersionId], references: [id])
+}
+
+model ChatSession {
+  id             String        @id @default(uuid())
+  locale         String
+  createdAt      DateTime      @default(now())
+  lastActiveAt   DateTime      @updatedAt
+  consentVersion String
+  messages       ChatMessage[]
+}
+
+model ChatMessage {
+  id             String      @id @default(uuid())
+  sessionId      String
+  role           String
+  content        String
+  matchId        String?
+  evidenceJson   Json?
+  modelTimestamp DateTime?
+  createdAt      DateTime    @default(now())
+  session        ChatSession @relation(fields: [sessionId], references: [id])
+  match          Match?      @relation(fields: [matchId], references: [id])
+}

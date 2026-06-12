@@ -1,0 +1,30 @@
+{
+  "name": "world-cup-intelligence",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @wci/web",
+    "build": "npm run build --workspace @wci/web",
+    "lint": "npm run lint --workspace @wci/web && npm run lint --workspace @wci/providers && npm run lint --workspace @wci/worker",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspace @wci/web && npm run test --workspace @wci/providers && npm run test --workspace @wci/worker",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "db:generate": "prisma generate --schema packages/database/prisma/schema.prisma",
+    "db:push": "prisma db push --schema packages/database/prisma/schema.prisma",
+    "db:seed": "tsx packages/database/prisma/seed.ts",
+    "model:test": "python3 -m unittest discover -s apps/model-service/tests -p 'test_*.py'",
+    "model:dev": "uvicorn app.main:app --app-dir apps/model-service --reload --port 8000"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "prettier": "^3.5.0",
+    "prisma": "^6.8.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}
