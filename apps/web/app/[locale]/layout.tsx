@@ -11,7 +11,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "World Cup Intelligence",
+  title: "Soccer Intelligence",
   description: "Transparent, calibrated international football forecasts."
 };
 
@@ -24,7 +24,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
         <Header locale={locale} />
         {children}
         <ChatWidget locale={locale} />
-        <footer className="footer"><div className="container">World Cup Intelligence is independent and is not affiliated with FIFA. Predictions are uncertain and informational only.</div></footer>
+        <footer className="footer"><div className="container">Soccer Intelligence is independent and is not affiliated with FIFA. Live data may be delayed by its provider. Forecasts are uncertain and informational only.</div></footer>
       </body>
     </html>
   );

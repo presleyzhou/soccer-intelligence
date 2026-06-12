@@ -3,10 +3,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "World Cup Intelligence",
-    template: "%s | World Cup Intelligence"
+    default: "Soccer Intelligence",
+    template: "%s | Soccer Intelligence"
   },
-  description: "Transparent, bilingual probabilities for international football and tournament simulation."
+  description: "Live international football data and verified, explainable forecasts."
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

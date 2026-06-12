@@ -10,7 +10,7 @@ export default function RootPage() {
 
   return (
     <main className="container">
-      <p>Opening World Cup Intelligence...</p>
+      <p>Opening Soccer Intelligence...</p>
     </main>
   );
 }

@@ -1,76 +1,54 @@
-import { Activity, Clock3, TrendingUp } from "lucide-react";
-import Link from "next/link";
-import { MatchRow } from "@/components/match-card";
-import { ProbabilityBar } from "@/components/probability-bar";
-import { advancement, getTeam, matches, modelMetrics, sources } from "@/lib/data";
-import { formatDate, formatPercent, getCopy, isLocale } from "@/lib/i18n";
+import { DatabaseZap, ShieldCheck, TimerReset } from "lucide-react";
 import { notFound } from "next/navigation";
+import { LiveMatchCentre } from "@/components/live-match-centre";
+import { getCopy, isLocale } from "@/lib/i18n";
 
 export default async function Dashboard({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const t = getCopy(locale);
-  const featured = matches[0]!;
-  const home = getTeam(featured.homeTeamId);
-  const away = getTeam(featured.awayTeamId);
-  const leaders = advancement.slice().sort((a, b) => b.champion - a.champion).slice(0, 6);
+  const copy = getCopy(locale);
+
   return (
     <main>
       <section className="hero">
         <div className="container">
-          <div className="eyebrow">FIFA WORLD CUP 2026 · MODEL v0.1.0</div>
-          <h1>{t.tagline}</h1>
-          <p className="lead">{locale === "zh" ? "融合球队实力、比分分布与市场共识，以严格时间外验证发布每场比赛和完整赛事的概率。" : "Team strength, score distributions and market consensus combined through strict out-of-time validation for every match and the full tournament."}</p>
-          <span className="notice">{t.simulated}</span>
+          <div className="eyebrow">SOCCER INTELLIGENCE · FIFA WORLD CUP 2026</div>
+          <h1>{copy.tagline}</h1>
+          <p className="lead">
+            {locale === "zh"
+              ? "赛程、比分和比赛状态使用公开实时数据。胜平负、晋级和冠军概率只有在真实输入、时间外验证和概率校准全部通过后才会发布。"
+              : "Fixtures, scores, and match status use a public live feed. Win, advancement, and champion probabilities publish only after real inputs, out-of-time validation, and calibration all pass."}
+          </p>
+          <span className="notice">{copy.simulated}</span>
         </div>
       </section>
 
       <div className="container grid dashboard-grid">
-        <div>
-          <section className="card">
-            <div className="section-header">
-              <div><div className="eyebrow">{t.nextSpotlight}</div><h2>{formatDate(featured.kickoffAt, locale)}</h2></div>
-              <span className="pill"><TrendingUp size={14} /> {featured.attention}/100</span>
-            </div>
-            <div className="versus">
-              <div className="team-row"><span className="flag">{home.flag}</span><div><div className="team-name">{home.name[locale]}</div><div className="team-meta">FIFA #{home.fifaRank} · Elo {home.elo}</div></div></div>
-              <strong>VS</strong>
-              <div className="team-row"><span className="flag">{away.flag}</span><div><div className="team-name">{away.name[locale]}</div><div className="team-meta">FIFA #{away.fifaRank} · Elo {away.elo}</div></div></div>
-            </div>
-            <ProbabilityBar values={[featured.prediction.home, featured.prediction.draw, featured.prediction.away]} locale={locale} />
-            <div className="section-header" style={{ marginTop: 18 }}>
-              <span className="muted">{t.likelyScore}: <strong style={{ color: "var(--text)" }}>{featured.prediction.scorelines[0]!.home}–{featured.prediction.scorelines[0]!.away}</strong></span>
-              <Link className="button primary" href={`/${locale}/matches/${featured.id}`}>{locale === "zh" ? "查看完整分析" : "Full analysis"}</Link>
-            </div>
-          </section>
-          <section className="section">
-            <div className="section-header"><h2>{t.recentMatches}</h2><Link className="muted tiny" href={`/${locale}/matches`}>{locale === "zh" ? "全部比赛 →" : "All matches →"}</Link></div>
-            <div className="match-list">{matches.slice(1).map((match) => <MatchRow key={match.id} match={match} locale={locale} />)}</div>
-          </section>
-        </div>
+        <LiveMatchCentre locale={locale} compact />
         <aside className="grid">
-          <section className="card">
-            <div className="section-header"><h2>{t.championRace}</h2><Activity size={18} color="var(--accent)" /></div>
-            <div className="ranking">
-              {leaders.map((row, index) => {
-                const team = getTeam(row.teamId);
-                return <div className="rank-row" key={team.id}><span className="muted">{index + 1}</span><div><div>{team.flag} <strong>{team.name[locale]}</strong></div><div className="rank-line"><span style={{ width: `${row.champion * 600}%` }} /></div></div><strong>{formatPercent(row.champion, locale)}</strong></div>;
-              })}
-            </div>
+          <section className="card soft">
+            <ShieldCheck color="var(--accent)" />
+            <h2>{locale === "zh" ? "模型发布状态" : "Forecast publication status"}</h2>
+            <p className="muted">
+              {locale === "zh"
+                ? "尚未发布。当前没有满足真实赛前特征、滚动样本外验证和校准要求的生产模型版本。"
+                : "Not published. No production model version currently satisfies real pre-match features, rolling out-of-time validation, and calibration requirements."}
+            </p>
           </section>
           <section className="card soft">
-            <h2>{t.performance}</h2>
-            <p className="tiny muted">{locale === "zh" ? `滚动样本外验证，${modelMetrics.sampleSize} 场` : `Rolling out-of-time validation, ${modelMetrics.sampleSize} matches`}</p>
-            <div className="metric-grid">
-              <div className="metric"><strong>{modelMetrics.rps}</strong><span className="tiny muted">RPS</span></div>
-              <div className="metric"><strong>{modelMetrics.logLoss}</strong><span className="tiny muted">Log loss</span></div>
-              <div className="metric"><strong>{formatPercent(modelMetrics.ece, locale)}</strong><span className="tiny muted">ECE</span></div>
-            </div>
+            <DatabaseZap color="var(--accent)" />
+            <h2>{locale === "zh" ? "实时事实源" : "Live fact source"}</h2>
+            <p className="muted">TheSportsDB · FIFA World Cup league 4429</p>
+            <span className="source-chip"><span className="status-dot" /> live · 60s refresh</span>
           </section>
           <section className="card soft">
-            <h2>{t.sourceStatus}</h2>
-            <div style={{ marginTop: 10 }}>{sources.map((source) => <span className="source-chip" key={source.id}><span className="status-dot" />{source.name} · {source.status}</span>)}</div>
-            <p className="tiny muted"><Clock3 size={12} /> {t.modelUpdated}: {formatDate(featured.prediction.updatedAt, locale)}</p>
+            <TimerReset color="var(--gold)" />
+            <h2>{locale === "zh" ? "故障策略" : "Failure policy"}</h2>
+            <p className="muted">
+              {locale === "zh"
+                ? "实时源不可用时显示暂无数据，不自动回退到虚构比赛或概率。"
+                : "If the live provider fails, the site shows unavailable data instead of invented fixtures or probabilities."}
+            </p>
           </section>
         </aside>
       </div>

@@ -8,8 +8,8 @@ type Message = { role: "user" | "assistant"; content: string };
 
 function offlineAnswer(locale: Locale): string {
   return locale === "zh"
-    ? "当前公开演示站使用本地预测快照。比赛概率、晋级机会和模型差异可在相应页面查看；实时 AI 服务将在配置后端后启用。"
-    : "This public demo uses a local prediction snapshot. Match probabilities, advancement chances, and model differences remain available on their pages; live AI activates when the backend is configured.";
+    ? "当前站点提供实时赛程、比分和预测市场数据。生产预测模型尚未发布，因此我不会给出模拟胜率或冠军概率。"
+    : "The site currently provides live fixtures, scores, and prediction-market data. No production forecast model is published, so I will not provide simulated win or champion probabilities.";
 }
 
 export function ChatWidget({ locale }: { locale: Locale }) {
@@ -17,7 +17,7 @@ export function ChatWidget({ locale }: { locale: Locale }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: locale === "zh" ? "可以问我比赛概率、晋级机会或模型与市场的分歧。" : "Ask about match probabilities, advancement chances, or model-market disagreement." }
+    { role: "assistant", content: locale === "zh" ? "可以询问实时数据来源和模型发布状态。" : "Ask about live data sources and model publication status." }
   ]);
 
   async function submit(event: FormEvent) {
@@ -48,10 +48,10 @@ export function ChatWidget({ locale }: { locale: Locale }) {
     <div className="chat-shell">
       {open && (
         <section className="card chat-panel" aria-label="AI football assistant">
-          <div className="section-header"><strong>WCI AI</strong><button className="pill" onClick={() => setOpen(false)} aria-label="Close chat"><X size={16} /></button></div>
+          <div className="section-header"><strong>Soccer Intelligence AI</strong><button className="pill" onClick={() => setOpen(false)} aria-label="Close chat"><X size={16} /></button></div>
           <div className="chat-log">{messages.map((item, index) => <div key={index} className={`bubble ${item.role}`}>{item.content}</div>)}</div>
           <form className="chat-form" onSubmit={submit}>
-            <input value={message} onChange={(event) => setMessage(event.target.value)} placeholder={locale === "zh" ? "为什么模型看好西班牙？" : "Why does the model like Spain?"} />
+            <input value={message} onChange={(event) => setMessage(event.target.value)} placeholder={locale === "zh" ? "数据多久刷新一次？" : "How often does live data refresh?"} />
             <button className="button primary" type="submit" disabled={loading}><Send size={16} /></button>
           </form>
           <p className="tiny muted">{locale === "zh" ? "回答区分事实、模型预测与市场观点。" : "Answers distinguish facts, model forecasts, and market views."}</p>

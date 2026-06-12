@@ -1,2 +1,13 @@
-import { advancement } from "@/lib/data"; import { json, rateLimit } from "@/lib/api";
-export async function POST(request:Request){const limited=rateLimit(request,10);if(limited)return limited;const body=await request.json() as {iterations?:number;seed?:number};const iterations=Math.min(250000,Math.max(50000,body.iterations??50000));return json({id:crypto.randomUUID(),status:"completed",iterations,seed:body.seed??20260612,result:advancement},{status:201,headers:{"cache-control":"no-store"}});}
+import { json, rateLimit } from "@/lib/api";
+export async function POST(request: Request) {
+  const limited = rateLimit(request, 10);
+  if (limited) return limited;
+  return json(
+    {
+      title: "Simulation not published",
+      status: 503,
+      detail: "A calibrated production model and verified tournament inputs are required."
+    },
+    { status: 503, headers: { "cache-control": "no-store" } }
+  );
+}

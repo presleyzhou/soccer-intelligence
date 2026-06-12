@@ -8,7 +8,7 @@ async function main(): Promise<void> {
     update: {},
     create: {
       key: "mock",
-      name: "World Cup Intelligence Mock Dataset",
+      name: "Soccer Intelligence Development Dataset",
       category: "football",
       priority: 1,
       enabled: true

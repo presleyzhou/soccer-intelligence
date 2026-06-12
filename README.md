@@ -1,4 +1,4 @@
-# World Cup Intelligence / 世界杯智能预测
+# Soccer Intelligence
 
 Deployable bilingual platform for international football match probabilities, score distributions, tournament simulation, market comparison, and evidence-grounded AI answers.
 
@@ -13,7 +13,7 @@ Deployable bilingual platform for international football match probabilities, sc
 - Evidence-constrained bilingual chat API with a no-LLM fallback.
 - Docker, Compose, CI, tests and health/readiness endpoints.
 
-Mock predictions and metrics are visibly labelled. They demonstrate the pipeline and are not claimed historical performance.
+The public site uses TheSportsDB's documented free API for live FIFA World Cup fixtures, scores, and status, plus Polymarket's public read-only API for market data. If a live provider is unavailable, the UI shows no data rather than substituting simulations. Forecast probabilities and backtest metrics remain unpublished until a real, calibrated production model passes rolling out-of-time validation.
 
 ## Local development
 
@@ -55,7 +55,7 @@ npm run db:push
 npm run db:seed
 ```
 
-The site intentionally runs in Mock mode without a database or external API keys. Configure provider keys in `.env` to activate adapters.
+The public match centre works without a private key through TheSportsDB's documented free API. Private provider keys activate additional authorized adapters; they never enable simulated data as a live fallback.
 
 ## Full container deployment
 

@@ -1,2 +1,7 @@
-import { modelMetrics } from "@/lib/data"; import { isLocale } from "@/lib/i18n"; import { notFound } from "next/navigation";
-export default async function Backtest({params}:{params:Promise<{locale:string}>}){const{locale}=await params;if(!isLocale(locale))notFound();return <main className="container"><header className="page-head"><h1>{locale==="zh"?"滚动样本外回测":"Rolling out-of-time backtest"}</h1></header><section className="card"><table className="table"><thead><tr><th>Window</th><th>Ensemble RPS</th><th>Market RPS</th><th>Difference</th></tr></thead><tbody>{modelMetrics.windows.map(row=><tr key={row.window}><td>{row.window}</td><td>{row.ensemble}</td><td>{row.market}</td><td>{(row.ensemble-row.market).toFixed(3)}</td></tr>)}</tbody></table><p className="tiny muted">{locale==="zh"?"数字为项目 Mock 基准，用于验证界面与评估流水线；不得当作真实历史业绩。":"These are project mock baselines for validating the evaluation pipeline, not claimed historical performance."}</p></section></main>}
+import { notFound } from "next/navigation";
+import { isLocale } from "@/lib/i18n";
+export default async function Backtest({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  return <main className="container"><header className="page-head"><h1>{locale === "zh" ? "滚动样本外回测" : "Rolling out-of-time backtest"}</h1></header><section className="card empty-state"><h2>{locale === "zh" ? "没有可发布的历史业绩" : "No publishable performance history"}</h2><p className="muted">{locale === "zh" ? "此前界面中的模拟指标已移除。只有基于赛前可用数据、保存预测时间戳并严格滚动验证的结果才会展示。" : "Previous mock metrics have been removed. Only results built from pre-match available data, timestamped forecasts, and strict rolling validation will be shown."}</p></section></main>;
+}

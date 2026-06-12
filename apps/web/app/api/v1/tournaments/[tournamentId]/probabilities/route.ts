@@ -1,2 +1,13 @@
-import { advancement } from "@/lib/data"; import { json, rateLimit } from "@/lib/api";
-export async function GET(request:Request,{params}:{params:Promise<{tournamentId:string}>}){const limited=rateLimit(request);if(limited)return limited;const{tournamentId}=await params;return json({tournamentId,iterations:100000,seed:20260612,data:advancement});}
+import { json, rateLimit } from "@/lib/api";
+export async function GET(request: Request) {
+  const limited = rateLimit(request);
+  if (limited) return limited;
+  return json(
+    {
+      title: "Tournament probabilities not published",
+      status: 503,
+      detail: "No verified and calibrated production model is currently available."
+    },
+    { status: 503, headers: { "cache-control": "no-store" } }
+  );
+}

@@ -1,6 +1,6 @@
-# World Cup Intelligence
+# Soccer Intelligence
 
-中文名称：世界杯智能预测
+中文界面名称：Soccer Intelligence
 
 状态：第一阶段系统设计  
 更新时间：2026-06-12
@@ -81,7 +81,7 @@ flowchart LR
 ## 3. 项目目录结构
 
 ```text
-world-cup-intelligence/
+soccer-intelligence/
 ├── apps/
 │   ├── web/
 │   │   ├── app/

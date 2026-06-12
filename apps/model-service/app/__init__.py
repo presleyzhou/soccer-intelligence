@@ -1,1 +1,1 @@
-"""World Cup Intelligence model service."""
+"""Soccer Intelligence model service."""

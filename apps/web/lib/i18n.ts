@@ -8,8 +8,8 @@ export function isLocale(value: string): value is Locale {
 
 const copy = {
   en: {
-    brand: "World Cup Intelligence",
-    tagline: "Transparent probabilities for international football",
+    brand: "Soccer Intelligence",
+    tagline: "Live facts first. Forecasts only when verified.",
     nav: {
       dashboard: "Dashboard",
       matches: "Matches",
@@ -30,12 +30,12 @@ const copy = {
     performance: "Recent model performance",
     qualification: "Tournament progression",
     sourceStatus: "Data source status",
-    simulated: "This deployment uses transparent mock fixtures until provider keys are configured.",
+    simulated: "No simulated fixtures or performance claims are published as current data.",
     disclaimer: "Probabilistic analysis only. Not betting or investment advice."
   },
   zh: {
-    brand: "世界杯智能预测",
-    tagline: "透明、可解释的国际足球概率预测",
+    brand: "Soccer Intelligence",
+    tagline: "实时事实优先，预测必须经过验证",
     nav: {
       dashboard: "首页",
       matches: "比赛",
@@ -56,7 +56,7 @@ const copy = {
     performance: "近期模型表现",
     qualification: "赛事晋级概率",
     sourceStatus: "数据源状态",
-    simulated: "当前部署在未配置数据源密钥时使用透明标注的模拟数据。",
+    simulated: "本站不会把模拟赛程、模拟概率或模拟业绩作为当前数据发布。",
     disclaimer: "仅为概率分析，不构成博彩或投资建议。"
   }
 } as const;

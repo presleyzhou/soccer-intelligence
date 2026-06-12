@@ -8,7 +8,7 @@ from app.models.poisson import score_matrix, summarize
 from app.schemas import EvaluationRequest, PredictionRequest, SimulationRequest
 from app.simulation import simulate_tournament
 
-app = FastAPI(title="World Cup Intelligence Model Service", version="0.1.0")
+app = FastAPI(title="Soccer Intelligence Model Service", version="0.1.0")
 
 
 @app.get("/internal/v1/health")

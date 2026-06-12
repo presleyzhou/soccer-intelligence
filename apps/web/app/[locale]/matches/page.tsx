@@ -1,10 +1,22 @@
-import { MatchRow } from "@/components/match-card";
-import { matches } from "@/lib/data";
-import { isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
+import { LiveMatchCentre } from "@/components/live-match-centre";
+import { isLocale } from "@/lib/i18n";
 
 export default async function MatchesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <main className="container"><header className="page-head"><div className="eyebrow">MATCH CENTRE</div><h1>{locale === "zh" ? "比赛预测" : "Match forecasts"}</h1><p className="lead">{locale === "zh" ? "所有概率均保存模型版本、生成时间和来源快照。" : "Every probability retains its model version, generation time, and source snapshot."}</p></header><div className="match-list">{matches.map((match) => <MatchRow key={match.id} match={match} locale={locale} />)}</div></main>;
+  return (
+    <main className="container">
+      <header className="page-head">
+        <div className="eyebrow">LIVE MATCH CENTRE</div>
+        <h1>{locale === "zh" ? "世界杯实时赛程" : "Live World Cup fixtures"}</h1>
+        <p className="lead">
+          {locale === "zh"
+            ? "展示真实赛程、比分和状态。未发布的模型概率不会用模拟值替代。"
+            : "Real fixtures, scores, and status. Unpublished model probabilities are never replaced with simulated values."}
+        </p>
+      </header>
+      <LiveMatchCentre locale={locale} />
+    </main>
+  );
 }
