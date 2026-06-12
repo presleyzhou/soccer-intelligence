@@ -1,42 +1,18 @@
 import type { Locale } from "@wci/contracts";
 import { formatPercent, getCopy } from "@/lib/i18n";
 
-export function ProbabilityBar({
-  home,
-  draw,
-  away,
-  locale
-}: {
-  home: number;
-  draw: number;
-  away: number;
-  locale: Locale;
-}) {
+export function ProbabilityBar({ values, locale }: { values: [number, number, number]; locale: Locale }) {
   const t = getCopy(locale);
+  const labels = [t.home, t.draw, t.away];
   return (
-    <div>
-      <div
-        className="probability-bar"
-        aria-label={`${t.home} ${formatPercent(home, locale)}, ${t.draw} ${formatPercent(draw, locale)}, ${t.away} ${formatPercent(away, locale)}`}
-      >
-        <span className="probability-home" style={{ width: `${home * 100}%` }} />
-        <span className="probability-draw" style={{ width: `${draw * 100}%` }} />
-        <span className="probability-away" style={{ width: `${away * 100}%` }} />
-      </div>
-      <div className="probability-labels">
-        <div>
-          <strong>{formatPercent(home, locale)}</strong>
-          <span>{t.home}</span>
+    <div className="probability-grid">
+      {values.map((value, index) => (
+        <div className="prob-box" key={labels[index]}>
+          <span className="muted tiny">{labels[index]}</span>
+          <strong>{formatPercent(value, locale)}</strong>
+          <div className="prob-bar"><div className="prob-fill" style={{ width: `${value * 100}%` }} /></div>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <strong>{formatPercent(draw, locale)}</strong>
-          <span>{t.draw}</span>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <strong>{formatPercent(away, locale)}</strong>
-          <span>{t.away}</span>
-        </div>
-      </div>
+      ))}
     </div>
   );
 }

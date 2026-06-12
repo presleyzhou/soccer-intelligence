@@ -1,36 +1,8 @@
-import type { Locale } from "@wci/contracts";
+import { advancement, getTeam } from "@/lib/data";
+import { formatPercent, isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
-import { isLocale } from "@/lib/i18n";
-
-export default async function BracketPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
-  const locale: Locale = rawLocale;
-  const rounds =
-    locale === "zh"
-      ? ["32 强", "16 强", "四分之一决赛", "半决赛", "决赛"]
-      : ["Round of 32", "Round of 16", "Quarter-finals", "Semi-finals", "Final"];
-  return (
-    <main className="page">
-      <p className="eyebrow">Format version: FIFA-WC-2026</p>
-      <h1 style={{ fontSize: "clamp(38px, 6vw, 68px)" }}>{locale === "zh" ? "淘汰赛路径" : "Knockout bracket"}</h1>
-      <div className="bracket section">
-        {rounds.map((round, index) => (
-          <div className="bracket-column" key={round}>
-            <h3>{round}</h3>
-            {Array.from({ length: Math.max(1, 5 - index) }, (_, matchIndex) => (
-              <div className="bracket-match" key={matchIndex}>
-                <strong>Match {73 + index * 8 + matchIndex}</strong>
-                <p className="muted">
-                  {locale === "zh"
-                    ? "由小组排名和最佳第三名组合决定"
-                    : "Allocated from group finish and best-third matrix"}
-                </p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </main>
-  );
+export default async function Bracket({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params; if (!isLocale(locale)) notFound();
+  const leaders = advancement.slice().sort((a,b) => b.champion-a.champion);
+  return <main className="container"><header className="page-head"><h1>{locale === "zh" ? "淘汰赛路径" : "Knockout pathways"}</h1><p className="lead">{locale === "zh" ? "展示每支球队到达各轮的边际概率。" : "Marginal probability of each team reaching every round."}</p></header><section className="card"><table className="table"><thead><tr><th>Team</th><th>R32</th><th>QF</th><th>SF</th><th>Final</th><th>Champion</th></tr></thead><tbody>{leaders.map(row => { const t=getTeam(row.teamId); return <tr key={row.teamId}><td>{t.flag} {t.name[locale]}</td><td>{formatPercent(row.roundOf32,locale)}</td><td>{formatPercent(row.quarterFinal,locale)}</td><td>{formatPercent(row.semiFinal,locale)}</td><td>{formatPercent(row.final,locale)}</td><td><strong>{formatPercent(row.champion,locale)}</strong></td></tr>})}</tbody></table></section></main>;
 }

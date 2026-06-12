@@ -1,67 +1,9 @@
-import type { Locale } from "@wci/contracts";
-import { notFound } from "next/navigation";
-import { advancement, getTeam, matches } from "@/lib/data";
+import { advancement, teams } from "@/lib/data";
 import { formatPercent, isLocale } from "@/lib/i18n";
-import { MatchCard } from "@/components/match-card";
-
+import { notFound } from "next/navigation";
 export default async function TeamPage({ params }: { params: Promise<{ locale: string; teamId: string }> }) {
-  const { locale: rawLocale, teamId } = await params;
-  if (!isLocale(rawLocale)) notFound();
-  const locale: Locale = rawLocale;
-  let team;
-  try {
-    team = getTeam(teamId);
-  } catch {
-    notFound();
-  }
-  const path = advancement.find((item) => item.teamId === team.id);
-  const fixtures = matches.filter((match) => match.homeTeamId === team.id || match.awayTeamId === team.id);
-  return (
-    <main className="page">
-      <div className="team">
-        <span className="flag" style={{ width: 72, height: 72, fontSize: 38 }}>
-          {team.flag}
-        </span>
-        <div>
-          <p className="eyebrow">Group {team.group}</p>
-          <h1 style={{ fontSize: "clamp(38px, 6vw, 68px)" }}>{team.name[locale]}</h1>
-          <p className="muted">
-            FIFA #{team.fifaRank} · Elo {team.elo} · {team.form}
-          </p>
-        </div>
-      </div>
-      {path ? (
-        <section className="section card card-pad">
-          <h2>{locale === "zh" ? "晋级路径" : "Progression path"}</h2>
-          <div className="kpi-grid">
-            <div className="kpi">
-              R32<strong>{formatPercent(path.roundOf32, locale)}</strong>
-            </div>
-            <div className="kpi">
-              QF<strong>{formatPercent(path.quarterFinal, locale)}</strong>
-            </div>
-            <div className="kpi">
-              SF<strong>{formatPercent(path.semiFinal, locale)}</strong>
-            </div>
-            <div className="kpi">
-              {locale === "zh" ? "决赛" : "Final"}
-              <strong>{formatPercent(path.final, locale)}</strong>
-            </div>
-            <div className="kpi">
-              {locale === "zh" ? "冠军" : "Champion"}
-              <strong>{formatPercent(path.champion, locale)}</strong>
-            </div>
-          </div>
-        </section>
-      ) : null}
-      <section className="section">
-        <h2>{locale === "zh" ? "相关比赛" : "Related matches"}</h2>
-        <div className="grid grid-2">
-          {fixtures.map((match) => (
-            <MatchCard key={match.id} match={match} locale={locale} />
-          ))}
-        </div>
-      </section>
-    </main>
-  );
+  const { locale, teamId } = await params; if (!isLocale(locale)) notFound();
+  const team = teams.find(item => item.id === teamId); if (!team) notFound();
+  const row = advancement.find(item => item.teamId === teamId);
+  return <main className="container"><header className="page-head"><div className="flag">{team.flag}</div><h1>{team.name[locale]}</h1><p className="lead">FIFA #{team.fifaRank} · Elo {team.elo} · Form {team.form}</p></header><div className="grid two"><section className="card"><h2>{locale === "zh" ? "球队实力" : "Team strength"}</h2><div className="metric-grid"><div className="metric"><strong>{team.elo}</strong><span className="muted tiny">Elo</span></div><div className="metric"><strong>#{team.fifaRank}</strong><span className="muted tiny">FIFA</span></div><div className="metric"><strong>{team.form}</strong><span className="muted tiny">Form</span></div></div></section><section className="card"><h2>{locale === "zh" ? "赛事概率" : "Tournament probability"}</h2>{row ? <div className="metric-grid"><div className="metric"><strong>{formatPercent(row.roundOf32,locale)}</strong><span className="muted tiny">R32</span></div><div className="metric"><strong>{formatPercent(row.semiFinal,locale)}</strong><span className="muted tiny">SF</span></div><div className="metric"><strong>{formatPercent(row.champion,locale)}</strong><span className="muted tiny">Champion</span></div></div> : null}</section></div></main>;
 }

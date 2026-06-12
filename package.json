@@ -17,14 +17,18 @@
     "db:generate": "prisma generate --schema packages/database/prisma/schema.prisma",
     "db:push": "prisma db push --schema packages/database/prisma/schema.prisma",
     "db:seed": "tsx packages/database/prisma/seed.ts",
-    "model:test": "python3 -m unittest discover -s apps/model-service/tests -p 'test_*.py'",
+    "model:test": "cd apps/model-service && python3 -m unittest discover -s tests -p 'test_*.py'",
     "model:dev": "uvicorn app.main:app --app-dir apps/model-service --reload --port 8000"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "postcss": "8.5.15",
     "prettier": "^3.5.0",
     "prisma": "^6.8.0",
     "tsx": "^4.19.0",
     "typescript": "^5.8.0"
+  },
+  "overrides": {
+    "postcss": "8.5.15"
   }
 }

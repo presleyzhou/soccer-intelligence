@@ -1,22 +1,11 @@
-import type { DataProvider, FetchContext, ProviderHealth, ProviderResult } from "./index";
-
-export class MockProvider<T> implements DataProvider<void, T, T> {
+import type { DataProvider, FetchContext, ProviderHealth, ProviderResult } from "./types.js";
+export class MockProvider<T> implements DataProvider<Record<string, never>, T, T> {
   readonly key = "mock";
   readonly category = "football" as const;
-
   constructor(private readonly records: T[]) {}
-
-  async healthCheck(): Promise<ProviderHealth> {
-    return { status: "healthy", checkedAt: new Date().toISOString() };
+  async healthCheck(): Promise<ProviderHealth> { return { status: "mock", checkedAt: new Date().toISOString() }; }
+  async fetch(_query: Record<string, never>, context: FetchContext): Promise<ProviderResult<T>> {
+    return { status: "mock", source: this.key, fetchedAt: context.requestedAt, data: this.records, stale: false };
   }
-
-  async fetch(_query: void, _context: FetchContext): Promise<ProviderResult<T>> {
-    void _query;
-    void _context;
-    return { records: this.records, source: this.key, fetchedAt: new Date().toISOString(), cacheStatus: "hit" };
-  }
-
-  normalize(record: T): T[] {
-    return [record];
-  }
+  normalize(record: T): T[] { return [record]; }
 }

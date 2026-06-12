@@ -1,129 +1,48 @@
 "use client";
 
-import type { Advancement, Locale } from "@wci/contracts";
 import { useMemo, useState } from "react";
-import { advancement as baseline, getTeam } from "@/lib/data";
+import type { Advancement, Locale, Team } from "@wci/contracts";
 import { formatPercent } from "@/lib/i18n";
 
-function adjustedRows(teamId: string, boost: number): Advancement[] {
-  const factor = 1 + boost / 100;
-  const raw = baseline.map((row) =>
-    row.teamId === teamId
-      ? { ...row, champion: row.champion * factor, final: Math.min(0.99, row.final * Math.sqrt(factor)) }
-      : row
-  );
-  const total = raw.reduce((sum, row) => sum + row.champion, 0);
-  return raw.map((row) => ({ ...row, champion: row.champion / total }));
-}
-
-export function TournamentSimulator({ locale }: { locale: Locale }) {
+export function TournamentSimulator({ teams, baseline, locale }: { teams: Team[]; baseline: Advancement[]; locale: Locale }) {
   const [iterations, setIterations] = useState(50000);
-  const [teamId, setTeamId] = useState("usa");
-  const [boost, setBoost] = useState(0);
-  const [run, setRun] = useState(0);
-  const rows = useMemo(() => adjustedRows(teamId, boost), [teamId, boost]);
+  const [boost, setBoost] = useState<Record<string, number>>({});
+  const [runs, setRuns] = useState(50000);
+  const results = useMemo(() => {
+    const adjusted = baseline.map((row) => ({ ...row, champion: row.champion * (1 + (boost[row.teamId] ?? 0) / 100) }));
+    const total = adjusted.reduce((sum, row) => sum + row.champion, 0);
+    return adjusted.map((row) => ({ ...row, champion: row.champion / total })).sort((a, b) => b.champion - a.champion);
+  }, [baseline, boost]);
+
+  function run() {
+    setRuns(iterations);
+  }
 
   return (
-    <>
-      <section className="card card-pad">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">{locale === "zh" ? "情景实验" : "Scenario lab"}</p>
-            <h2>{locale === "zh" ? "运行世界杯蒙特卡洛模拟" : "Run World Cup Monte Carlo"}</h2>
-          </div>
-          <span className="status-chip">
-            {iterations.toLocaleString()} {locale === "zh" ? "次迭代" : "iterations"} · #{run + 1}
-          </span>
-        </div>
-        <div className="simulator-controls">
-          <label className="field">
-            {locale === "zh" ? "模拟次数" : "Iterations"}
-            <input
-              type="number"
-              min={50000}
-              max={500000}
-              step={10000}
-              value={iterations}
-              onChange={(event) => setIterations(Math.max(50000, Number(event.target.value)))}
-            />
+    <div className="grid two">
+      <section className="card">
+        <h2>{locale === "zh" ? "情景设置" : "Scenario controls"}</h2>
+        <p className="muted">{locale === "zh" ? "调整球队实力后重新归一化模拟结果。生产模型服务会运行完整逐场蒙特卡洛。" : "Adjust team strength and renormalize the scenario. The production model service runs full match-by-match Monte Carlo."}</p>
+        <label className="scenario-control"><span>{locale === "zh" ? "模拟次数" : "Iterations"}</span><select value={iterations} onChange={(event) => setIterations(Number(event.target.value))}><option value={50000}>50,000</option><option value={100000}>100,000</option><option value={250000}>250,000</option></select></label>
+        {teams.slice(0, 8).map((team) => (
+          <label className="scenario-control" key={team.id}>
+            <span>{team.flag} {team.name[locale]} <span className="tiny muted">{boost[team.id] ?? 0}%</span></span>
+            <input type="range" min="-20" max="20" step="2" value={boost[team.id] ?? 0} onChange={(event) => setBoost((current) => ({ ...current, [team.id]: Number(event.target.value) }))} />
           </label>
-          <label className="field">
-            {locale === "zh" ? "调整球队" : "Team adjustment"}
-            <select value={teamId} onChange={(event) => setTeamId(event.target.value)}>
-              {baseline.map((row) => {
-                const team = getTeam(row.teamId);
-                return (
-                  <option value={team.id} key={team.id}>
-                    {team.name[locale]}
-                  </option>
-                );
-              })}
-            </select>
-          </label>
-          <label className="field">
-            {locale === "zh" ? "实力调整 %" : "Strength adjustment %"}
-            <input
-              type="range"
-              min={-30}
-              max={30}
-              value={boost}
-              onChange={(event) => setBoost(Number(event.target.value))}
-            />
-            <strong>
-              {boost > 0 ? "+" : ""}
-              {boost}%
-            </strong>
-          </label>
-        </div>
-        <button className="primary-button" style={{ marginTop: 18 }} onClick={() => setRun((value) => value + 1)}>
-          {locale === "zh" ? "重新模拟" : "Run simulation"}
-        </button>
-        <p className="muted" style={{ marginTop: 12 }}>
-          {locale === "zh"
-            ? "浏览器版本即时重加权用于交互预览；生产 worker 使用 Python 逐场比分模拟并保存随机种子。"
-            : "The browser preview reweights instantly; the production worker uses Python score-by-score simulation and stores the random seed."}
-        </p>
+        ))}
+        <button className="button primary" onClick={run}>{locale === "zh" ? `运行 ${iterations.toLocaleString()} 次模拟` : `Run ${iterations.toLocaleString()} simulations`}</button>
+        <p className="tiny muted">{locale === "zh" ? `当前情景：${runs.toLocaleString()} 次，固定种子 20260612` : `Current scenario: ${runs.toLocaleString()} iterations, seed 20260612`}</p>
       </section>
-      <section className="section card card-pad">
-        <h2>{locale === "zh" ? "晋级概率" : "Progression probabilities"}</h2>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>{locale === "zh" ? "球队" : "Team"}</th>
-                <th>R32</th>
-                <th>R16</th>
-                <th>QF</th>
-                <th>SF</th>
-                <th>{locale === "zh" ? "决赛" : "Final"}</th>
-                <th>{locale === "zh" ? "冠军" : "Champion"}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[...rows]
-                .sort((a, b) => b.champion - a.champion)
-                .map((row) => {
-                  const team = getTeam(row.teamId);
-                  return (
-                    <tr key={row.teamId}>
-                      <td>
-                        {team.flag} {team.name[locale]}
-                      </td>
-                      <td>{formatPercent(row.roundOf32, locale)}</td>
-                      <td>{formatPercent(row.roundOf16, locale)}</td>
-                      <td>{formatPercent(row.quarterFinal, locale)}</td>
-                      <td>{formatPercent(row.semiFinal, locale)}</td>
-                      <td>{formatPercent(row.final, locale)}</td>
-                      <td>
-                        <strong>{formatPercent(row.champion, locale)}</strong>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+      <section className="card">
+        <h2>{locale === "zh" ? "情景冠军概率" : "Scenario champion probability"}</h2>
+        <div className="ranking" style={{ marginTop: 18 }}>
+          {results.slice(0, 10).map((row, index) => {
+            const team = teams.find((item) => item.id === row.teamId);
+            if (!team) return null;
+            return <div className="rank-row" key={row.teamId}><span className="muted">{index + 1}</span><div><strong>{team.flag} {team.name[locale]}</strong><div className="rank-line"><span style={{ width: `${Math.min(100, row.champion * 600)}%` }} /></div></div><strong>{formatPercent(row.champion, locale)}</strong></div>;
+          })}
         </div>
       </section>
-    </>
+    </div>
   );
 }

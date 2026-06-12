@@ -1,28 +1,9 @@
 "use client";
-
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("wci-theme");
-    const next = saved === "light" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-  }, []);
-
-  function toggle(): void {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    window.localStorage.setItem("wci-theme", next);
-    document.documentElement.dataset.theme = next;
-  }
-
-  return (
-    <button className="icon-button" type="button" onClick={toggle} aria-label="Toggle color theme">
-      {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
-    </button>
-  );
+export function ThemeToggle(){
+  const[light,setLight]=useState(false);
+  useEffect(()=>{const saved=localStorage.getItem("wci-theme")==="light";setLight(saved);document.documentElement.classList.toggle("light",saved)},[]);
+  function toggle(){setLight(current=>{const next=!current;document.documentElement.classList.toggle("light",next);localStorage.setItem("wci-theme",next?"light":"dark");return next})}
+  return <button className="pill" onClick={toggle} aria-label="Toggle color theme">{light?<Moon size={15}/>:<Sun size={15}/>}</button>
 }

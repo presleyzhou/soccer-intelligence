@@ -1,4 +1,4 @@
-import type { DataProvider, FetchContext, ProviderHealth, ProviderResult } from "./index";
+import type { DataProvider, FetchContext, ProviderHealth, ProviderResult } from "./types.js";
 
 export type NewsQuery = { teamNames: string[]; since: string };
 export type RawNewsItem = { id: string; title: string; url: string; publishedAt: string; source: string };
@@ -23,10 +23,11 @@ export class NewsPlaceholderProvider implements DataProvider<NewsQuery, RawNewsI
     void _query;
     void _context;
     return {
-      records: [],
+      status: "degraded",
       source: this.key,
       fetchedAt: new Date().toISOString(),
-      cacheStatus: "stale",
+      data: [],
+      stale: true,
       error: "No authorized news API configured"
     };
   }

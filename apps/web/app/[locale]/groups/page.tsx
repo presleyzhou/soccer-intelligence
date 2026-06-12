@@ -1,46 +1,7 @@
-import type { Locale } from "@wci/contracts";
-import { notFound } from "next/navigation";
-import { advancement, getTeam, teams } from "@/lib/data";
+import { advancement, getTeam } from "@/lib/data";
 import { formatPercent, isLocale } from "@/lib/i18n";
-
-export default async function GroupsPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
-  const locale: Locale = rawLocale;
-  const groups = [...new Set(teams.map((team) => team.group))].sort();
-  return (
-    <main className="page">
-      <p className="eyebrow">12 groups · best third-place allocation</p>
-      <h1 style={{ fontSize: "clamp(38px, 6vw, 68px)" }}>
-        {locale === "zh" ? "小组与出线概率" : "Groups and qualification"}
-      </h1>
-      <div className="grid grid-3 section">
-        {groups.map((group) => (
-          <section className="card card-pad" key={group}>
-            <h2>Group {group}</h2>
-            <div className="rank-list">
-              {teams
-                .filter((team) => team.group === group)
-                .map((team) => {
-                  const probability = advancement.find((item) => item.teamId === team.id)?.roundOf32 ?? 0.42;
-                  return (
-                    <div className="source-row" key={team.id}>
-                      <span>
-                        {team.flag} {getTeam(team.id).name[locale]}
-                      </span>
-                      <strong>{formatPercent(probability, locale)}</strong>
-                    </div>
-                  );
-                })}
-              <p className="muted">
-                {locale === "zh"
-                  ? "其余席位由赛程 Provider 配置后显示。"
-                  : "Remaining slots appear when the fixture provider is configured."}
-              </p>
-            </div>
-          </section>
-        ))}
-      </div>
-    </main>
-  );
+import { notFound } from "next/navigation";
+export default async function Groups({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params; if (!isLocale(locale)) notFound();
+  return <main className="container"><header className="page-head"><h1>{locale === "zh" ? "小组与出线概率" : "Groups and qualification"}</h1></header><section className="card"><table className="table"><thead><tr><th>{locale === "zh" ? "球队" : "Team"}</th><th>{locale === "zh" ? "小组" : "Group"}</th><th>{locale === "zh" ? "32 强" : "R32"}</th><th>{locale === "zh" ? "16 强" : "R16"}</th></tr></thead><tbody>{advancement.map((row) => { const team = getTeam(row.teamId); return <tr key={row.teamId}><td>{team.flag} {team.name[locale]}</td><td>{team.group}</td><td>{formatPercent(row.roundOf32, locale)}</td><td>{formatPercent(row.roundOf16, locale)}</td></tr>; })}</tbody></table></section></main>;
 }

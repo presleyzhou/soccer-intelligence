@@ -1,32 +1,8 @@
-import type { Locale } from "@wci/contracts";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { teams } from "@/lib/data";
 import { isLocale } from "@/lib/i18n";
-
-export default async function TeamsPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
-  const locale: Locale = rawLocale;
-  return (
-    <main className="page">
-      <p className="eyebrow">{locale === "zh" ? "球队实力" : "Team strength"}</p>
-      <h1 style={{ fontSize: "clamp(38px, 6vw, 68px)" }}>{locale === "zh" ? "国家队" : "National teams"}</h1>
-      <div className="grid grid-3 section">
-        {teams.map((team) => (
-          <Link className="card card-pad" href={`/${locale}/teams/${team.id}`} key={team.id}>
-            <div className="team">
-              <span className="flag">{team.flag}</span>
-              <div>
-                <h2>{team.name[locale]}</h2>
-                <p className="muted">
-                  FIFA #{team.fifaRank} · Elo {team.elo} · {team.form}
-                </p>
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </main>
-  );
+import { notFound } from "next/navigation";
+export default async function Teams({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params; if (!isLocale(locale)) notFound();
+  return <main className="container"><header className="page-head"><h1>{locale === "zh" ? "国家队实力" : "National teams"}</h1></header><div className="grid three">{teams.map(team => <Link className="card" href={`/${locale}/teams/${team.id}`} key={team.id}><div className="team-row"><span className="flag">{team.flag}</span><div><div className="team-name">{team.name[locale]}</div><div className="team-meta">FIFA #{team.fifaRank} · Elo {team.elo} · {team.form}</div></div></div></Link>)}</div></main>;
 }

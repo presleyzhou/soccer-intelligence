@@ -1,1 +1,1 @@
-"""Prediction models."""
+"""Statistical football models."""

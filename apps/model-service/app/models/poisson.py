@@ -1,52 +1,36 @@
-from __future__ import annotations
-
-import math
-from typing import List, Tuple
+from math import exp, factorial
+from typing import Dict, List, Tuple
 
 
-Matrix = List[List[float]]
+def poisson_probability(goals: int, expected: float) -> float:
+    if goals < 0 or expected <= 0:
+        return 0.0
+    return exp(-expected) * expected ** goals / factorial(goals)
 
 
-def poisson_probability(goals: int, rate: float) -> float:
-    return math.exp(-rate) * rate**goals / math.factorial(goals)
-
-
-def expected_goals(
-    home_attack: float,
-    home_defense: float,
-    away_attack: float,
-    away_defense: float,
-    neutral: bool = True,
-    home_lineup_adjustment: float = 0.0,
-    away_lineup_adjustment: float = 0.0,
-) -> Tuple[float, float]:
-    home_advantage = 1.0 if neutral else 1.11
-    home_rate = 1.28 * home_attack / away_defense * home_advantage * math.exp(home_lineup_adjustment)
-    away_rate = 1.22 * away_attack / home_defense * math.exp(away_lineup_adjustment)
-    return max(0.15, min(4.2, home_rate)), max(0.15, min(4.2, away_rate))
-
-
-def dixon_coles_factor(home_goals: int, away_goals: int, home_rate: float, away_rate: float, rho: float) -> float:
+def dixon_coles_adjustment(home_goals: int, away_goals: int, home_xg: float, away_xg: float,
+                           rho: float = -0.08) -> float:
     if home_goals == 0 and away_goals == 0:
-        return 1.0 - home_rate * away_rate * rho
+        return 1.0 - home_xg * away_xg * rho
     if home_goals == 0 and away_goals == 1:
-        return 1.0 + home_rate * rho
+        return 1.0 + home_xg * rho
     if home_goals == 1 and away_goals == 0:
-        return 1.0 + away_rate * rho
+        return 1.0 + away_xg * rho
     if home_goals == 1 and away_goals == 1:
         return 1.0 - rho
     return 1.0
 
 
-def score_matrix(home_rate: float, away_rate: float, max_goals: int = 8, rho: float = -0.08) -> Matrix:
-    matrix: Matrix = []
+def score_matrix(home_xg: float, away_xg: float, max_goals: int = 8,
+                 rho: float = -0.08) -> List[List[float]]:
+    matrix: List[List[float]] = []
     for home_goals in range(max_goals + 1):
         row = []
         for away_goals in range(max_goals + 1):
             probability = (
-                poisson_probability(home_goals, home_rate)
-                * poisson_probability(away_goals, away_rate)
-                * dixon_coles_factor(home_goals, away_goals, home_rate, away_rate, rho)
+                poisson_probability(home_goals, home_xg)
+                * poisson_probability(away_goals, away_xg)
+                * dixon_coles_adjustment(home_goals, away_goals, home_xg, away_xg, rho)
             )
             row.append(max(0.0, probability))
         matrix.append(row)
@@ -54,41 +38,28 @@ def score_matrix(home_rate: float, away_rate: float, max_goals: int = 8, rho: fl
     return [[value / total for value in row] for row in matrix]
 
 
-def aggregate_1x2(matrix: Matrix) -> Tuple[float, float, float]:
-    home = draw = away = 0.0
+def summarize(matrix: List[List[float]]) -> Dict[str, object]:
+    home = draw = away = over25 = btts = 0.0
+    scores: List[Tuple[int, int, float]] = []
     for home_goals, row in enumerate(matrix):
         for away_goals, probability in enumerate(row):
+            scores.append((home_goals, away_goals, probability))
             if home_goals > away_goals:
                 home += probability
             elif home_goals == away_goals:
                 draw += probability
             else:
                 away += probability
-    return home, draw, away
-
-
-def top_scorelines(matrix: Matrix, limit: int = 5) -> List[Tuple[int, int, float]]:
-    values = [
-        (home_goals, away_goals, probability)
-        for home_goals, row in enumerate(matrix)
-        for away_goals, probability in enumerate(row)
-    ]
-    return sorted(values, key=lambda value: value[2], reverse=True)[:limit]
-
-
-def both_teams_score(matrix: Matrix) -> float:
-    return sum(
-        probability
-        for home_goals, row in enumerate(matrix)
-        for away_goals, probability in enumerate(row)
-        if home_goals > 0 and away_goals > 0
-    )
-
-
-def over_25(matrix: Matrix) -> float:
-    return sum(
-        probability
-        for home_goals, row in enumerate(matrix)
-        for away_goals, probability in enumerate(row)
-        if home_goals + away_goals >= 3
-    )
+            if home_goals + away_goals >= 3:
+                over25 += probability
+            if home_goals > 0 and away_goals > 0:
+                btts += probability
+    scores.sort(key=lambda item: item[2], reverse=True)
+    return {
+        "home": home,
+        "draw": draw,
+        "away": away,
+        "over25": over25,
+        "both_teams_score": btts,
+        "scorelines": [{"home": h, "away": a, "probability": p} for h, a, p in scores[:5]],
+    }
