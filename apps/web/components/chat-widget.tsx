@@ -6,6 +6,12 @@ import type { ChatResponse, Locale } from "@wci/contracts";
 
 type Message = { role: "user" | "assistant"; content: string };
 
+function offlineAnswer(locale: Locale): string {
+  return locale === "zh"
+    ? "当前公开演示站使用本地预测快照。比赛概率、晋级机会和模型差异可在相应页面查看；实时 AI 服务将在配置后端后启用。"
+    : "This public demo uses a local prediction snapshot. Match probabilities, advancement chances, and model differences remain available on their pages; live AI activates when the backend is configured.";
+}
+
 export function ChatWidget({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
@@ -23,7 +29,8 @@ export function ChatWidget({ locale }: { locale: Locale }) {
     setMessage("");
     setLoading(true);
     try {
-      const response = await fetch("/api/v1/chat", {
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+      const response = await fetch(`${basePath}/api/v1/chat`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ language: locale, message: trimmed, conversationHistory: history.slice(-8) })
@@ -31,7 +38,7 @@ export function ChatWidget({ locale }: { locale: Locale }) {
       const data = (await response.json()) as ChatResponse;
       setMessages((current) => [...current, { role: "assistant", content: data.answer }]);
     } catch {
-      setMessages((current) => [...current, { role: "assistant", content: locale === "zh" ? "服务暂时不可用，请稍后重试。" : "The service is temporarily unavailable. Please try again." }]);
+      setMessages((current) => [...current, { role: "assistant", content: offlineAnswer(locale) }]);
     } finally {
       setLoading(false);
     }

@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "npm run dev --workspace @wci/web",
     "build": "npm run build --workspace @wci/web",
+    "build:pages": "node scripts/build-pages.mjs",
     "lint": "npm run lint --workspace @wci/web && npm run lint --workspace @wci/providers && npm run lint --workspace @wci/worker",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspace @wci/web && npm run test --workspace @wci/providers && npm run test --workspace @wci/worker",

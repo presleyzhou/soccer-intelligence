@@ -6,6 +6,10 @@ import { ChatWidget } from "@/components/chat-widget";
 import { Header } from "@/components/header";
 import { isLocale } from "@/lib/i18n";
 
+export function generateStaticParams() {
+  return [{ locale: "en" }, { locale: "zh" }];
+}
+
 export const metadata: Metadata = {
   title: "World Cup Intelligence",
   description: "Transparent, calibrated international football forecasts."

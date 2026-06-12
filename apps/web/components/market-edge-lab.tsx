@@ -15,7 +15,8 @@ export function MarketEdgeLab({ locale }: { locale: Locale }) {
   async function refresh(): Promise<void> {
     setStatus("loading");
     try {
-      const response = await fetch("/api/v1/markets/polymarket", { cache: "no-store" });
+      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+      const response = await fetch(`${basePath}/api/v1/markets/polymarket`, { cache: "no-store" });
       if (!response.ok) throw new Error("market request failed");
       const payload = (await response.json()) as { markets: MarketOpportunity[]; fallback: boolean };
       setMarkets(payload.markets.length ? payload.markets : fallbackMarkets);

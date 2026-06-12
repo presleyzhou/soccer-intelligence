@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
 import { ModelChart } from "@/components/model-chart";
 import { ProbabilityBar } from "@/components/probability-bar";
-import { getMatch, getTeam } from "@/lib/data";
+import { getMatch, getTeam, matches } from "@/lib/data";
 import { formatDate, formatPercent, isLocale } from "@/lib/i18n";
+
+export function generateStaticParams() {
+  return ["en", "zh"].flatMap((locale) => matches.map((match) => ({ locale, matchId: match.id })));
+}
 
 export default async function MatchDetail({ params }: { params: Promise<{ locale: string; matchId: string }> }) {
   const { locale, matchId } = await params;

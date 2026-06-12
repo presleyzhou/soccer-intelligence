@@ -1,6 +1,11 @@
 import { advancement, teams } from "@/lib/data";
 import { formatPercent, isLocale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
+
+export function generateStaticParams() {
+  return ["en", "zh"].flatMap((locale) => teams.map((team) => ({ locale, teamId: team.id })));
+}
+
 export default async function TeamPage({ params }: { params: Promise<{ locale: string; teamId: string }> }) {
   const { locale, teamId } = await params; if (!isLocale(locale)) notFound();
   const team = teams.find(item => item.id === teamId); if (!team) notFound();
