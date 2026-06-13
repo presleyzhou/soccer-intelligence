@@ -12,8 +12,8 @@ export default async function MatchesPage({ params }: { params: Promise<{ locale
         <h1>{locale === "zh" ? "世界杯实时赛程" : "Live World Cup fixtures"}</h1>
         <p className="lead">
           {locale === "zh"
-            ? "展示真实赛程、比分和状态。未发布的模型概率不会用模拟值替代。"
-            : "Real fixtures, scores, and status. Unpublished model probabilities are never replaced with simulated values."}
+            ? "展示真实赛程、比分和状态；研究型比赛概率在首页独立展示，并明确注明模型与数据时间。"
+            : "Real fixtures, scores, and status. Research match probabilities appear separately on the dashboard with model and data timestamps."}
         </p>
       </header>
       <LiveMatchCentre locale={locale} />

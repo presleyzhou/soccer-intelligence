@@ -11,6 +11,7 @@
     "build": "npm run build --workspace @wci/web",
     "build:pages": "node scripts/build-pages.mjs",
     "data:update-elo": "node scripts/update-elo-snapshot.mjs",
+    "data:update-backtest": "node scripts/update-backtest.mjs",
     "lint": "npm run lint --workspace @wci/web && npm run lint --workspace @wci/providers && npm run lint --workspace @wci/worker",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspace @wci/web && npm run test --workspace @wci/providers && npm run test --workspace @wci/worker",

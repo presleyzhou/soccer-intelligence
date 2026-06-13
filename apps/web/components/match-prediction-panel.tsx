@@ -28,9 +28,12 @@ const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const TEAM_CODE_OVERRIDES: Record<string, string> = {
   "bosnia-herzegovina": "BA",
+  "cape-verde": "CV",
+  "congo-dr": "CD",
   "czech-republic": "CZ",
   "ivory-coast": "CI",
   "south-korea": "KR",
+  turkiye: "TR",
   usa: "US"
 };
 
@@ -74,9 +77,7 @@ export function MatchPredictionPanel({ locale }: { locale: Locale }) {
   const load = useCallback(async () => {
     setState((current) => (current === "live" ? current : "loading"));
     try {
-      const dates = Array.from({ length: 7 }, (_, offset) =>
-        utcDateWithOffset(offset - 1)
-      );
+      const dates = Array.from({ length: 7 }, (_, offset) => utcDateWithOffset(offset - 1));
       const [eloResponse, loadedEvents] = await Promise.all([
         fetch(`${BASE_PATH}/data/world-elo.json`, { cache: "no-store" }),
         fetchWorldCupDates(dates)

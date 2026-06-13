@@ -1,4 +1,5 @@
 import type { ChatRequest, ChatResponse } from "@wci/contracts";
+import { siteChatAnswer } from "@/lib/chat-answer";
 import { json, rateLimit } from "@/lib/api";
 import { liveSources } from "@/lib/live-data";
 
@@ -9,12 +10,8 @@ export async function POST(request: Request) {
     const body = (await request.json()) as ChatRequest;
     if (!body.message?.trim() || !["en", "zh"].includes(body.language))
       return json({ title: "Invalid chat request", status: 400 }, { status: 400 });
-    const answer =
-      body.language === "zh"
-        ? "Soccer Intelligence 当前使用 ESPN 世界杯实时赛程与比分、World Football Elo Ratings 实力快照和 Polymarket 公共市场数据。首页提供 Elo、Poisson、Dixon-Coles 等权研究预测，但尚未完成本站滚动样本外校准。"
-        : "Soccer Intelligence uses ESPN for live World Cup fixtures and scores, World Football Elo Ratings for strength snapshots, and Polymarket public market data. The homepage provides an equal-weight Elo, Poisson, and Dixon-Coles research forecast that has not yet completed this site's rolling out-of-time calibration.";
     const response: ChatResponse = {
-      answer,
+      answer: siteChatAnswer(body.message, body.language),
       relatedMatches: [],
       sources: liveSources.map((source) => ({
         id: source.id,

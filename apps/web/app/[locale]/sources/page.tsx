@@ -23,8 +23,14 @@ const sources = [
   {
     name: "Polymarket Gamma API",
     status: "live",
-    purpose: "Public read-only prediction-market prices, volume and liquidity",
-    url: "https://docs.polymarket.com/developers/gamma-markets-api/overview"
+    purpose: "Dedicated 2026 World Cup-tagged market midpoints, volume and liquidity",
+    url: "https://docs.polymarket.com/market-data/fetching-markets"
+  },
+  {
+    name: "International football results",
+    status: "build-time snapshot",
+    purpose: "Strict chronological Elo baseline backtest from 2010 onward",
+    url: "https://github.com/martj42/international_results"
   },
   {
     name: "Open-Meteo",

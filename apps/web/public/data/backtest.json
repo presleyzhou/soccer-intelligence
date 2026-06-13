@@ -1,0 +1,243 @@
+{
+  "generatedAt": "2026-06-13T06:30:15.313Z",
+  "source": {
+    "name": "International football results from 1872 to present",
+    "url": "https://raw.githubusercontent.com/martj42/international_results/master/results.csv",
+    "repository": "https://github.com/martj42/international_results"
+  },
+  "methodology": {
+    "model": "Chronological Elo three-way baseline",
+    "warmupStart": "1872-11-30",
+    "evaluationStart": "2010-01-01",
+    "evaluationEnd": "2026-06-12",
+    "homeAdvantage": 65,
+    "leakageControl": "Each probability is generated from ratings available before that match; ratings update only after its result."
+  },
+  "overall": {
+    "matches": 15821,
+    "logLoss": 0.9026025479054723,
+    "brier": 0.5294536590497209,
+    "rps": 0.17709929978770528,
+    "accuracy": 0.5914291132039694,
+    "expectedCalibrationError": 0.031697113172858636
+  },
+  "byCompetition": {
+    "friendlies": {
+      "matches": 5073,
+      "logLoss": 0.9557656167458438,
+      "brier": 0.5661094288890731,
+      "rps": 0.18743123321797384,
+      "accuracy": 0.5519416518825153
+    },
+    "qualifiers": {
+      "matches": 6128,
+      "logLoss": 0.8324588145112164,
+      "brier": 0.48151797492399684,
+      "rps": 0.16003601037075824,
+      "accuracy": 0.6406657963446475
+    },
+    "continental": {
+      "matches": 3440,
+      "logLoss": 0.9389370340075376,
+      "brier": 0.5539421395246231,
+      "rps": 0.18771818541508975,
+      "accuracy": 0.5674418604651162
+    },
+    "other": {
+      "matches": 920,
+      "logLoss": 0.9194071864322957,
+      "brier": 0.5410896504808861,
+      "rps": 0.18670431852048572,
+      "accuracy": 0.5826086956521739
+    },
+    "worldCup": {
+      "matches": 260,
+      "logLoss": 0.9783473570478921,
+      "brier": 0.5788754551153513,
+      "rps": 0.20319297464513084,
+      "accuracy": 0.55
+    }
+  },
+  "byYear": [
+    {
+      "year": "2010",
+      "matches": 863,
+      "logLoss": 0.9524430637516256,
+      "brier": 0.5644982636366854,
+      "rps": 0.1902169031470161,
+      "accuracy": 0.5457705677867902
+    },
+    {
+      "year": "2011",
+      "matches": 1119,
+      "logLoss": 0.8872095807192836,
+      "brier": 0.5179881692159009,
+      "rps": 0.17241345622427345,
+      "accuracy": 0.6005361930294906
+    },
+    {
+      "year": "2012",
+      "matches": 1025,
+      "logLoss": 0.9322997484863833,
+      "brier": 0.5501824440157969,
+      "rps": 0.19135771208841407,
+      "accuracy": 0.5541463414634147
+    },
+    {
+      "year": "2013",
+      "matches": 963,
+      "logLoss": 0.9217362400149434,
+      "brier": 0.5441634892785562,
+      "rps": 0.1793638831925292,
+      "accuracy": 0.5950155763239875
+    },
+    {
+      "year": "2014",
+      "matches": 856,
+      "logLoss": 0.95094190996914,
+      "brier": 0.5616059052170749,
+      "rps": 0.1902349433115134,
+      "accuracy": 0.5607476635514018
+    },
+    {
+      "year": "2015",
+      "matches": 1039,
+      "logLoss": 0.882833704799842,
+      "brier": 0.5159071852494591,
+      "rps": 0.17715898705013275,
+      "accuracy": 0.6102021174205967
+    },
+    {
+      "year": "2016",
+      "matches": 920,
+      "logLoss": 0.8960281159516453,
+      "brier": 0.523893245699845,
+      "rps": 0.17583218688989702,
+      "accuracy": 0.6065217391304348
+    },
+    {
+      "year": "2017",
+      "matches": 924,
+      "logLoss": 0.936631012630896,
+      "brier": 0.5510849130653711,
+      "rps": 0.18071345975404188,
+      "accuracy": 0.551948051948052
+    },
+    {
+      "year": "2018",
+      "matches": 929,
+      "logLoss": 0.9519329606378474,
+      "brier": 0.5627767653318929,
+      "rps": 0.18788193754908314,
+      "accuracy": 0.5522066738428417
+    },
+    {
+      "year": "2019",
+      "matches": 1149,
+      "logLoss": 0.8572410393861412,
+      "brier": 0.4977667010774209,
+      "rps": 0.1678920779698234,
+      "accuracy": 0.6240208877284595
+    },
+    {
+      "year": "2020",
+      "matches": 347,
+      "logLoss": 0.9801187418193777,
+      "brier": 0.5845239160728048,
+      "rps": 0.19259423045406363,
+      "accuracy": 0.5389048991354467
+    },
+    {
+      "year": "2021",
+      "matches": 1115,
+      "logLoss": 0.8274702491285126,
+      "brier": 0.4787354575292251,
+      "rps": 0.1541572109109369,
+      "accuracy": 0.6502242152466368
+    },
+    {
+      "year": "2022",
+      "matches": 970,
+      "logLoss": 0.9243179361893149,
+      "brier": 0.5430496323647315,
+      "rps": 0.18502737112390827,
+      "accuracy": 0.5824742268041238
+    },
+    {
+      "year": "2023",
+      "matches": 1054,
+      "logLoss": 0.8753101306768976,
+      "brier": 0.512352812992673,
+      "rps": 0.17382651742805752,
+      "accuracy": 0.6166982922201139
+    },
+    {
+      "year": "2024",
+      "matches": 1231,
+      "logLoss": 0.90961525467134,
+      "brier": 0.5349876248722714,
+      "rps": 0.17471788996928914,
+      "accuracy": 0.5816409423233144
+    },
+    {
+      "year": "2025",
+      "matches": 1002,
+      "logLoss": 0.8434938401456678,
+      "brier": 0.48943146770144025,
+      "rps": 0.1614873094703716,
+      "accuracy": 0.6297405189620758
+    },
+    {
+      "year": "2026",
+      "matches": 315,
+      "logLoss": 0.904437078189273,
+      "brier": 0.5290513393986104,
+      "rps": 0.17312204168151832,
+      "accuracy": 0.5936507936507937
+    }
+  ],
+  "calibration": [
+    {
+      "lower": 0.3,
+      "upper": 0.4,
+      "matches": 1375,
+      "meanConfidence": 0.38501682925782243,
+      "accuracy": 0.3978181818181818
+    },
+    {
+      "lower": 0.4,
+      "upper": 0.5,
+      "matches": 4417,
+      "meanConfidence": 0.4498154030995864,
+      "accuracy": 0.43536336880235454
+    },
+    {
+      "lower": 0.5,
+      "upper": 0.6,
+      "matches": 3876,
+      "meanConfidence": 0.5499096366727037,
+      "accuracy": 0.5577915376676986
+    },
+    {
+      "lower": 0.6,
+      "upper": 0.7,
+      "matches": 3219,
+      "meanConfidence": 0.6484228138902279,
+      "accuracy": 0.6893445169307238
+    },
+    {
+      "lower": 0.7,
+      "upper": 0.8,
+      "matches": 2147,
+      "meanConfidence": 0.7465671802278977,
+      "accuracy": 0.8174196553330229
+    },
+    {
+      "lower": 0.8,
+      "upper": 0.9,
+      "matches": 787,
+      "meanConfidence": 0.820017715563191,
+      "accuracy": 0.9542566709021602
+    }
+  ]
+}

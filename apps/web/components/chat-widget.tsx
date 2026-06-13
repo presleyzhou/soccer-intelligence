@@ -3,14 +3,9 @@
 import { MessageCircle, Send, X } from "lucide-react";
 import { FormEvent, useState } from "react";
 import type { ChatResponse, Locale } from "@wci/contracts";
+import { siteChatAnswer } from "@/lib/chat-answer";
 
 type Message = { role: "user" | "assistant"; content: string };
-
-function offlineAnswer(locale: Locale): string {
-  return locale === "zh"
-    ? "当前站点提供 ESPN 实时赛程与比分，以及 Elo、Poisson、Dixon-Coles 等权研究预测。该预测尚未完成本站滚动样本外校准，不是确定结果或博彩建议。"
-    : "The site provides ESPN live fixtures and scores plus an equal-weight Elo, Poisson, and Dixon-Coles research forecast. It has not yet completed this site's rolling out-of-time calibration and is not a certain result or betting advice.";
-}
 
 export function ChatWidget({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -21,8 +16,8 @@ export function ChatWidget({ locale }: { locale: Locale }) {
       role: "assistant",
       content:
         locale === "zh"
-          ? "可以询问实时数据来源和首页多模型预测。"
-          : "Ask about live data sources and the homepage multi-model forecast."
+          ? "可以询问实时数据、比赛预测、市场概率、世界杯模拟和历史回测。"
+          : "Ask about live data, match forecasts, market probabilities, tournament simulations, and backtests."
     }
   ]);
 
@@ -34,8 +29,15 @@ export function ChatWidget({ locale }: { locale: Locale }) {
     setMessages(history);
     setMessage("");
     setLoading(true);
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+    if (basePath) {
+      window.setTimeout(() => {
+        setMessages((current) => [...current, { role: "assistant", content: siteChatAnswer(trimmed, locale) }]);
+        setLoading(false);
+      }, 120);
+      return;
+    }
     try {
-      const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
       const response = await fetch(`${basePath}/api/v1/chat`, {
         method: "POST",
         headers: { "content-type": "application/json" },
@@ -44,7 +46,7 @@ export function ChatWidget({ locale }: { locale: Locale }) {
       const data = (await response.json()) as ChatResponse;
       setMessages((current) => [...current, { role: "assistant", content: data.answer }]);
     } catch {
-      setMessages((current) => [...current, { role: "assistant", content: offlineAnswer(locale) }]);
+      setMessages((current) => [...current, { role: "assistant", content: siteChatAnswer(trimmed, locale) }]);
     } finally {
       setLoading(false);
     }
@@ -71,7 +73,7 @@ export function ChatWidget({ locale }: { locale: Locale }) {
             <input
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              placeholder={locale === "zh" ? "数据多久刷新一次？" : "How often does live data refresh?"}
+              placeholder={locale === "zh" ? "世界杯冠军概率如何计算？" : "How are title probabilities calculated?"}
             />
             <button className="button primary" type="submit" disabled={loading}>
               <Send size={16} />
