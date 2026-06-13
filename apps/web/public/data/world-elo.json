@@ -1,0 +1,2033 @@
+{
+  "source": "World Football Elo Ratings",
+  "sourceUrl": "https://www.eloratings.net/World.tsv",
+  "namesUrl": "https://www.eloratings.net/en.teams.tsv",
+  "fetchedAt": "2026-06-12T21:40:06.699Z",
+  "sourceLastModified": "Fri, 12 Jun 2026 10:05:32 GMT",
+  "teams": [
+    {
+      "rank": 1,
+      "code": "ES",
+      "rating": 2157,
+      "names": [
+        "Spain"
+      ]
+    },
+    {
+      "rank": 2,
+      "code": "AR",
+      "rating": 2115,
+      "names": [
+        "Argentina"
+      ]
+    },
+    {
+      "rank": 3,
+      "code": "FR",
+      "rating": 2063,
+      "names": [
+        "France"
+      ]
+    },
+    {
+      "rank": 4,
+      "code": "EN",
+      "rating": 2024,
+      "names": [
+        "England"
+      ]
+    },
+    {
+      "rank": 5,
+      "code": "BR",
+      "rating": 1991,
+      "names": [
+        "Brazil"
+      ]
+    },
+    {
+      "rank": 6,
+      "code": "PT",
+      "rating": 1989,
+      "names": [
+        "Portugal"
+      ]
+    },
+    {
+      "rank": 7,
+      "code": "CO",
+      "rating": 1982,
+      "names": [
+        "Colombia"
+      ]
+    },
+    {
+      "rank": 8,
+      "code": "NL",
+      "rating": 1948,
+      "names": [
+        "Netherlands"
+      ]
+    },
+    {
+      "rank": 9,
+      "code": "EC",
+      "rating": 1938,
+      "names": [
+        "Ecuador"
+      ]
+    },
+    {
+      "rank": 10,
+      "code": "DE",
+      "rating": 1932,
+      "names": [
+        "Germany"
+      ]
+    },
+    {
+      "rank": 11,
+      "code": "NO",
+      "rating": 1914,
+      "names": [
+        "Norway"
+      ]
+    },
+    {
+      "rank": 12,
+      "code": "HR",
+      "rating": 1912,
+      "names": [
+        "Croatia"
+      ]
+    },
+    {
+      "rank": 13,
+      "code": "TR",
+      "rating": 1911,
+      "names": [
+        "Turkey"
+      ]
+    },
+    {
+      "rank": 14,
+      "code": "JP",
+      "rating": 1906,
+      "names": [
+        "Japan"
+      ]
+    },
+    {
+      "rank": 15,
+      "code": "BE",
+      "rating": 1894,
+      "names": [
+        "Belgium"
+      ]
+    },
+    {
+      "rank": 16,
+      "code": "UY",
+      "rating": 1892,
+      "names": [
+        "Uruguay"
+      ]
+    },
+    {
+      "rank": 17,
+      "code": "CH",
+      "rating": 1891,
+      "names": [
+        "Switzerland"
+      ]
+    },
+    {
+      "rank": 18,
+      "code": "MX",
+      "rating": 1881,
+      "names": [
+        "Mexico"
+      ]
+    },
+    {
+      "rank": 19,
+      "code": "DK",
+      "rating": 1869,
+      "names": [
+        "Denmark"
+      ]
+    },
+    {
+      "rank": 19,
+      "code": "IT",
+      "rating": 1869,
+      "names": [
+        "Italy"
+      ]
+    },
+    {
+      "rank": 21,
+      "code": "SN",
+      "rating": 1860,
+      "names": [
+        "Senegal"
+      ]
+    },
+    {
+      "rank": 22,
+      "code": "PY",
+      "rating": 1834,
+      "names": [
+        "Paraguay"
+      ]
+    },
+    {
+      "rank": 23,
+      "code": "AT",
+      "rating": 1830,
+      "names": [
+        "Austria"
+      ]
+    },
+    {
+      "rank": 24,
+      "code": "MA",
+      "rating": 1827,
+      "names": [
+        "Morocco"
+      ]
+    },
+    {
+      "rank": 25,
+      "code": "CA",
+      "rating": 1788,
+      "names": [
+        "Canada"
+      ]
+    },
+    {
+      "rank": 26,
+      "code": "KR",
+      "rating": 1786,
+      "names": [
+        "South Korea"
+      ]
+    },
+    {
+      "rank": 27,
+      "code": "SQ",
+      "rating": 1782,
+      "names": [
+        "Scotland"
+      ]
+    },
+    {
+      "rank": 28,
+      "code": "UA",
+      "rating": 1780,
+      "names": [
+        "Ukraine"
+      ]
+    },
+    {
+      "rank": 29,
+      "code": "AU",
+      "rating": 1777,
+      "names": [
+        "Australia"
+      ]
+    },
+    {
+      "rank": 30,
+      "code": "DZ",
+      "rating": 1772,
+      "names": [
+        "Algeria"
+      ]
+    },
+    {
+      "rank": 30,
+      "code": "IR",
+      "rating": 1772,
+      "names": [
+        "Iran"
+      ]
+    },
+    {
+      "rank": 30,
+      "code": "RU",
+      "rating": 1772,
+      "names": [
+        "Russia"
+      ]
+    },
+    {
+      "rank": 33,
+      "code": "NG",
+      "rating": 1767,
+      "names": [
+        "Nigeria"
+      ]
+    },
+    {
+      "rank": 34,
+      "code": "GR",
+      "rating": 1744,
+      "names": [
+        "Greece"
+      ]
+    },
+    {
+      "rank": 35,
+      "code": "RS",
+      "rating": 1734,
+      "names": [
+        "Serbia"
+      ]
+    },
+    {
+      "rank": 36,
+      "code": "VE",
+      "rating": 1733,
+      "names": [
+        "Venezuela"
+      ]
+    },
+    {
+      "rank": 37,
+      "code": "PA",
+      "rating": 1730,
+      "names": [
+        "Panama"
+      ]
+    },
+    {
+      "rank": 38,
+      "code": "US",
+      "rating": 1726,
+      "names": [
+        "United States",
+        "USA"
+      ]
+    },
+    {
+      "rank": 39,
+      "code": "CL",
+      "rating": 1717,
+      "names": [
+        "Chile"
+      ]
+    },
+    {
+      "rank": 40,
+      "code": "KO",
+      "rating": 1715,
+      "names": [
+        "Kosovo"
+      ]
+    },
+    {
+      "rank": 41,
+      "code": "UZ",
+      "rating": 1714,
+      "names": [
+        "Uzbekistan"
+      ]
+    },
+    {
+      "rank": 42,
+      "code": "CZ",
+      "rating": 1712,
+      "names": [
+        "Czechia"
+      ]
+    },
+    {
+      "rank": 42,
+      "code": "SE",
+      "rating": 1712,
+      "names": [
+        "Sweden"
+      ]
+    },
+    {
+      "rank": 44,
+      "code": "HU",
+      "rating": 1710,
+      "names": [
+        "Hungary"
+      ]
+    },
+    {
+      "rank": 44,
+      "code": "PL",
+      "rating": 1710,
+      "names": [
+        "Poland"
+      ]
+    },
+    {
+      "rank": 46,
+      "code": "PE",
+      "rating": 1700,
+      "names": [
+        "Peru"
+      ]
+    },
+    {
+      "rank": 47,
+      "code": "IE",
+      "rating": 1699,
+      "names": [
+        "Ireland"
+      ]
+    },
+    {
+      "rank": 48,
+      "code": "EG",
+      "rating": 1696,
+      "names": [
+        "Egypt"
+      ]
+    },
+    {
+      "rank": 49,
+      "code": "CI",
+      "rating": 1695,
+      "names": [
+        "Ivory Coast"
+      ]
+    },
+    {
+      "rank": 50,
+      "code": "WA",
+      "rating": 1682,
+      "names": [
+        "Wales"
+      ]
+    },
+    {
+      "rank": 50,
+      "code": "SI",
+      "rating": 1682,
+      "names": [
+        "Slovenia"
+      ]
+    },
+    {
+      "rank": 52,
+      "code": "JO",
+      "rating": 1680,
+      "names": [
+        "Jordan"
+      ]
+    },
+    {
+      "rank": 53,
+      "code": "SK",
+      "rating": 1667,
+      "names": [
+        "Slovakia"
+      ]
+    },
+    {
+      "rank": 54,
+      "code": "GE",
+      "rating": 1654,
+      "names": [
+        "Georgia"
+      ]
+    },
+    {
+      "rank": 55,
+      "code": "CD",
+      "rating": 1652,
+      "names": [
+        "DR Congo"
+      ]
+    },
+    {
+      "rank": 56,
+      "code": "IL",
+      "rating": 1647,
+      "names": [
+        "Israel"
+      ]
+    },
+    {
+      "rank": 57,
+      "code": "RO",
+      "rating": 1639,
+      "names": [
+        "Romania"
+      ]
+    },
+    {
+      "rank": 58,
+      "code": "TN",
+      "rating": 1628,
+      "names": [
+        "Tunisia"
+      ]
+    },
+    {
+      "rank": 59,
+      "code": "BO",
+      "rating": 1621,
+      "names": [
+        "Bolivia"
+      ]
+    },
+    {
+      "rank": 60,
+      "code": "AL",
+      "rating": 1616,
+      "names": [
+        "Albania"
+      ]
+    },
+    {
+      "rank": 61,
+      "code": "CM",
+      "rating": 1614,
+      "names": [
+        "Cameroon"
+      ]
+    },
+    {
+      "rank": 62,
+      "code": "CR",
+      "rating": 1608,
+      "names": [
+        "Costa Rica"
+      ]
+    },
+    {
+      "rank": 63,
+      "code": "IQ",
+      "rating": 1607,
+      "names": [
+        "Iraq"
+      ]
+    },
+    {
+      "rank": 64,
+      "code": "EI",
+      "rating": 1605,
+      "names": [
+        "Northern Ireland",
+        "North Ireland",
+        "N Ireland"
+      ]
+    },
+    {
+      "rank": 65,
+      "code": "BA",
+      "rating": 1595,
+      "names": [
+        "Bosnia and Herzegovina",
+        "Bosnia & Herzegovina",
+        "Bosnia/Herzegovina",
+        "Bosnia/Herzeg",
+        "Bosnia/Herz"
+      ]
+    },
+    {
+      "rank": 66,
+      "code": "NM",
+      "rating": 1589,
+      "names": [
+        "North Macedonia",
+        "N Macedonia"
+      ]
+    },
+    {
+      "rank": 67,
+      "code": "ML",
+      "rating": 1588,
+      "names": [
+        "Mali"
+      ]
+    },
+    {
+      "rank": 68,
+      "code": "CV",
+      "rating": 1578,
+      "names": [
+        "Cape Verde"
+      ]
+    },
+    {
+      "rank": 69,
+      "code": "SA",
+      "rating": 1576,
+      "names": [
+        "Saudi Arabia"
+      ]
+    },
+    {
+      "rank": 70,
+      "code": "HN",
+      "rating": 1570,
+      "names": [
+        "Honduras"
+      ]
+    },
+    {
+      "rank": 71,
+      "code": "IS",
+      "rating": 1568,
+      "names": [
+        "Iceland"
+      ]
+    },
+    {
+      "rank": 72,
+      "code": "NZ",
+      "rating": 1562,
+      "names": [
+        "New Zealand"
+      ]
+    },
+    {
+      "rank": 73,
+      "code": "HT",
+      "rating": 1548,
+      "names": [
+        "Haiti"
+      ]
+    },
+    {
+      "rank": 74,
+      "code": "AO",
+      "rating": 1542,
+      "names": [
+        "Angola"
+      ]
+    },
+    {
+      "rank": 75,
+      "code": "AE",
+      "rating": 1540,
+      "names": [
+        "United Arab Emirates",
+        "UAE"
+      ]
+    },
+    {
+      "rank": 76,
+      "code": "FI",
+      "rating": 1536,
+      "names": [
+        "Finland"
+      ]
+    },
+    {
+      "rank": 77,
+      "code": "BF",
+      "rating": 1529,
+      "names": [
+        "Burkina Faso"
+      ]
+    },
+    {
+      "rank": 78,
+      "code": "JM",
+      "rating": 1527,
+      "names": [
+        "Jamaica"
+      ]
+    },
+    {
+      "rank": 79,
+      "code": "BY",
+      "rating": 1522,
+      "names": [
+        "Belarus"
+      ]
+    },
+    {
+      "rank": 80,
+      "code": "ZA",
+      "rating": 1511,
+      "names": [
+        "South Africa"
+      ]
+    },
+    {
+      "rank": 81,
+      "code": "GH",
+      "rating": 1510,
+      "names": [
+        "Ghana"
+      ]
+    },
+    {
+      "rank": 82,
+      "code": "GT",
+      "rating": 1504,
+      "names": [
+        "Guatemala"
+      ]
+    },
+    {
+      "rank": 83,
+      "code": "OM",
+      "rating": 1480,
+      "names": [
+        "Oman"
+      ]
+    },
+    {
+      "rank": 84,
+      "code": "SY",
+      "rating": 1479,
+      "names": [
+        "Syria"
+      ]
+    },
+    {
+      "rank": 85,
+      "code": "PS",
+      "rating": 1465,
+      "names": [
+        "Palestine"
+      ]
+    },
+    {
+      "rank": 86,
+      "code": "GN",
+      "rating": 1463,
+      "names": [
+        "Guinea"
+      ]
+    },
+    {
+      "rank": 87,
+      "code": "ME",
+      "rating": 1461,
+      "names": [
+        "Montenegro"
+      ]
+    },
+    {
+      "rank": 88,
+      "code": "BG",
+      "rating": 1458,
+      "names": [
+        "Bulgaria"
+      ]
+    },
+    {
+      "rank": 89,
+      "code": "LU",
+      "rating": 1450,
+      "names": [
+        "Luxembourg"
+      ]
+    },
+    {
+      "rank": 90,
+      "code": "NS",
+      "rating": 1442,
+      "names": [
+        "Northern Cyprus",
+        "North Cyprus",
+        "N Cyprus"
+      ]
+    },
+    {
+      "rank": 91,
+      "code": "CW",
+      "rating": 1434,
+      "names": [
+        "Curaçao"
+      ]
+    },
+    {
+      "rank": 92,
+      "code": "SR",
+      "rating": 1431,
+      "names": [
+        "Suriname"
+      ]
+    },
+    {
+      "rank": 93,
+      "code": "KZ",
+      "rating": 1428,
+      "names": [
+        "Kazakhstan"
+      ]
+    },
+    {
+      "rank": 94,
+      "code": "CN",
+      "rating": 1424,
+      "names": [
+        "China"
+      ]
+    },
+    {
+      "rank": 94,
+      "code": "KD",
+      "rating": 1424,
+      "names": [
+        "Kurdistan"
+      ]
+    },
+    {
+      "rank": 96,
+      "code": "QA",
+      "rating": 1421,
+      "names": [
+        "Qatar"
+      ]
+    },
+    {
+      "rank": 97,
+      "code": "LY",
+      "rating": 1420,
+      "names": [
+        "Libya"
+      ]
+    },
+    {
+      "rank": 98,
+      "code": "GM",
+      "rating": 1419,
+      "names": [
+        "Gambia"
+      ]
+    },
+    {
+      "rank": 99,
+      "code": "BH",
+      "rating": 1414,
+      "names": [
+        "Bahrain"
+      ]
+    },
+    {
+      "rank": 100,
+      "code": "BJ",
+      "rating": 1405,
+      "names": [
+        "Benin"
+      ]
+    },
+    {
+      "rank": 101,
+      "code": "GA",
+      "rating": 1401,
+      "names": [
+        "Gabon"
+      ]
+    },
+    {
+      "rank": 102,
+      "code": "UG",
+      "rating": 1394,
+      "names": [
+        "Uganda"
+      ]
+    },
+    {
+      "rank": 103,
+      "code": "TT",
+      "rating": 1386,
+      "names": [
+        "Trinidad and Tobago",
+        "Trinidad & Tobago",
+        "Trinidad/Tobago",
+        "Trinidad/Tob"
+      ]
+    },
+    {
+      "rank": 103,
+      "code": "FO",
+      "rating": 1386,
+      "names": [
+        "Faroe Islands"
+      ]
+    },
+    {
+      "rank": 105,
+      "code": "NE",
+      "rating": 1382,
+      "names": [
+        "Niger"
+      ]
+    },
+    {
+      "rank": 106,
+      "code": "MG",
+      "rating": 1380,
+      "names": [
+        "Madagascar"
+      ]
+    },
+    {
+      "rank": 106,
+      "code": "GQ",
+      "rating": 1380,
+      "names": [
+        "Equatorial Guinea",
+        "Equat Guinea",
+        "Eq Guinea"
+      ]
+    },
+    {
+      "rank": 108,
+      "code": "TG",
+      "rating": 1379,
+      "names": [
+        "Togo"
+      ]
+    },
+    {
+      "rank": 109,
+      "code": "TH",
+      "rating": 1376,
+      "names": [
+        "Thailand"
+      ]
+    },
+    {
+      "rank": 110,
+      "code": "KP",
+      "rating": 1375,
+      "names": [
+        "North Korea"
+      ]
+    },
+    {
+      "rank": 111,
+      "code": "KM",
+      "rating": 1374,
+      "names": [
+        "Comoros"
+      ]
+    },
+    {
+      "rank": 112,
+      "code": "AM",
+      "rating": 1373,
+      "names": [
+        "Armenia"
+      ]
+    },
+    {
+      "rank": 113,
+      "code": "ZW",
+      "rating": 1372,
+      "names": [
+        "Zimbabwe"
+      ]
+    },
+    {
+      "rank": 113,
+      "code": "ID",
+      "rating": 1372,
+      "names": [
+        "Indonesia"
+      ]
+    },
+    {
+      "rank": 115,
+      "code": "ZM",
+      "rating": 1371,
+      "names": [
+        "Zambia"
+      ]
+    },
+    {
+      "rank": 116,
+      "code": "KE",
+      "rating": 1363,
+      "names": [
+        "Kenya"
+      ]
+    },
+    {
+      "rank": 117,
+      "code": "EE",
+      "rating": 1360,
+      "names": [
+        "Estonia"
+      ]
+    },
+    {
+      "rank": 118,
+      "code": "VN",
+      "rating": 1351,
+      "names": [
+        "Vietnam"
+      ]
+    },
+    {
+      "rank": 119,
+      "code": "SD",
+      "rating": 1350,
+      "names": [
+        "Sudan"
+      ]
+    },
+    {
+      "rank": 120,
+      "code": "RE",
+      "rating": 1345,
+      "names": [
+        "Reunion"
+      ]
+    },
+    {
+      "rank": 121,
+      "code": "SV",
+      "rating": 1342,
+      "names": [
+        "El Salvador"
+      ]
+    },
+    {
+      "rank": 121,
+      "code": "MZ",
+      "rating": 1342,
+      "names": [
+        "Mozambique"
+      ]
+    },
+    {
+      "rank": 123,
+      "code": "SL",
+      "rating": 1341,
+      "names": [
+        "Sierra Leone"
+      ]
+    },
+    {
+      "rank": 124,
+      "code": "GP",
+      "rating": 1338,
+      "names": [
+        "Guadeloupe"
+      ]
+    },
+    {
+      "rank": 125,
+      "code": "RW",
+      "rating": 1336,
+      "names": [
+        "Rwanda"
+      ]
+    },
+    {
+      "rank": 126,
+      "code": "NI",
+      "rating": 1333,
+      "names": [
+        "Nicaragua"
+      ]
+    },
+    {
+      "rank": 127,
+      "code": "KW",
+      "rating": 1332,
+      "names": [
+        "Kuwait"
+      ]
+    },
+    {
+      "rank": 128,
+      "code": "MR",
+      "rating": 1329,
+      "names": [
+        "Mauritania"
+      ]
+    },
+    {
+      "rank": 129,
+      "code": "AZ",
+      "rating": 1322,
+      "names": [
+        "Azerbaijan"
+      ]
+    },
+    {
+      "rank": 130,
+      "code": "ZN",
+      "rating": 1320,
+      "names": [
+        "Zanzibar"
+      ]
+    },
+    {
+      "rank": 131,
+      "code": "CY",
+      "rating": 1314,
+      "names": [
+        "Cyprus"
+      ]
+    },
+    {
+      "rank": 132,
+      "code": "TZ",
+      "rating": 1313,
+      "names": [
+        "Tanzania"
+      ]
+    },
+    {
+      "rank": 133,
+      "code": "MQ",
+      "rating": 1312,
+      "names": [
+        "Martinique"
+      ]
+    },
+    {
+      "rank": 134,
+      "code": "LR",
+      "rating": 1304,
+      "names": [
+        "Liberia"
+      ]
+    },
+    {
+      "rank": 135,
+      "code": "NA",
+      "rating": 1303,
+      "names": [
+        "Namibia"
+      ]
+    },
+    {
+      "rank": 136,
+      "code": "KG",
+      "rating": 1295,
+      "names": [
+        "Kyrgyzstan"
+      ]
+    },
+    {
+      "rank": 137,
+      "code": "MY",
+      "rating": 1293,
+      "names": [
+        "Malaysia"
+      ]
+    },
+    {
+      "rank": 138,
+      "code": "GY",
+      "rating": 1292,
+      "names": [
+        "Guyana"
+      ]
+    },
+    {
+      "rank": 139,
+      "code": "LB",
+      "rating": 1288,
+      "names": [
+        "Lebanon"
+      ]
+    },
+    {
+      "rank": 139,
+      "code": "LV",
+      "rating": 1288,
+      "names": [
+        "Latvia"
+      ]
+    },
+    {
+      "rank": 141,
+      "code": "ET",
+      "rating": 1287,
+      "names": [
+        "Ethiopia"
+      ]
+    },
+    {
+      "rank": 142,
+      "code": "NC",
+      "rating": 1286,
+      "names": [
+        "New Caledonia",
+        "N Caledonia"
+      ]
+    },
+    {
+      "rank": 143,
+      "code": "TJ",
+      "rating": 1285,
+      "names": [
+        "Tajikistan"
+      ]
+    },
+    {
+      "rank": 143,
+      "code": "BI",
+      "rating": 1285,
+      "names": [
+        "Burundi"
+      ]
+    },
+    {
+      "rank": 145,
+      "code": "DO",
+      "rating": 1283,
+      "names": [
+        "Dominican Republic",
+        "Dominican Rep",
+        "Dominican R"
+      ]
+    },
+    {
+      "rank": 146,
+      "code": "LT",
+      "rating": 1279,
+      "names": [
+        "Lithuania"
+      ]
+    },
+    {
+      "rank": 147,
+      "code": "MD",
+      "rating": 1270,
+      "names": [
+        "Moldova"
+      ]
+    },
+    {
+      "rank": 148,
+      "code": "BW",
+      "rating": 1267,
+      "names": [
+        "Botswana"
+      ]
+    },
+    {
+      "rank": 149,
+      "code": "MT",
+      "rating": 1255,
+      "names": [
+        "Malta"
+      ]
+    },
+    {
+      "rank": 150,
+      "code": "GW",
+      "rating": 1248,
+      "names": [
+        "Guinea-Bissau",
+        "Guinea-Biss"
+      ]
+    },
+    {
+      "rank": 151,
+      "code": "CU",
+      "rating": 1239,
+      "names": [
+        "Cuba"
+      ]
+    },
+    {
+      "rank": 151,
+      "code": "MW",
+      "rating": 1239,
+      "names": [
+        "Malawi"
+      ]
+    },
+    {
+      "rank": 153,
+      "code": "CF",
+      "rating": 1236,
+      "names": [
+        "Central African Republic",
+        "Central African Rep",
+        "C African Rep",
+        "C Afr Rep"
+      ]
+    },
+    {
+      "rank": 154,
+      "code": "GF",
+      "rating": 1223,
+      "names": [
+        "French Guiana",
+        "Fr Guiana"
+      ]
+    },
+    {
+      "rank": 155,
+      "code": "YT",
+      "rating": 1216,
+      "names": [
+        "Mayotte"
+      ]
+    },
+    {
+      "rank": 156,
+      "code": "TM",
+      "rating": 1209,
+      "names": [
+        "Turkmenistan"
+      ]
+    },
+    {
+      "rank": 157,
+      "code": "CG",
+      "rating": 1207,
+      "names": [
+        "Congo"
+      ]
+    },
+    {
+      "rank": 158,
+      "code": "ER",
+      "rating": 1201,
+      "names": [
+        "Eritrea"
+      ]
+    },
+    {
+      "rank": 159,
+      "code": "LS",
+      "rating": 1198,
+      "names": [
+        "Lesotho"
+      ]
+    },
+    {
+      "rank": 160,
+      "code": "YE",
+      "rating": 1195,
+      "names": [
+        "Yemen"
+      ]
+    },
+    {
+      "rank": 161,
+      "code": "PH",
+      "rating": 1179,
+      "names": [
+        "Philippines"
+      ]
+    },
+    {
+      "rank": 162,
+      "code": "TI",
+      "rating": 1177,
+      "names": [
+        "Tahiti"
+      ]
+    },
+    {
+      "rank": 163,
+      "code": "SW",
+      "rating": 1148,
+      "names": [
+        "Eswatini"
+      ]
+    },
+    {
+      "rank": 164,
+      "code": "VC",
+      "rating": 1141,
+      "names": [
+        "Saint Vincent and the Grenadines",
+        "St Vincent & Grenadines",
+        "St Vincent/Grenadines",
+        "St Vincent/Gren",
+        "St Vincent/G"
+      ]
+    },
+    {
+      "rank": 165,
+      "code": "PG",
+      "rating": 1135,
+      "names": [
+        "Papua New Guinea",
+        "Papua N Guinea",
+        "Papua N Guin",
+        "Papua N G"
+      ]
+    },
+    {
+      "rank": 165,
+      "code": "PR",
+      "rating": 1135,
+      "names": [
+        "Puerto Rico"
+      ]
+    },
+    {
+      "rank": 167,
+      "code": "SG",
+      "rating": 1134,
+      "names": [
+        "Singapore"
+      ]
+    },
+    {
+      "rank": 168,
+      "code": "IN",
+      "rating": 1128,
+      "names": [
+        "India"
+      ]
+    },
+    {
+      "rank": 169,
+      "code": "VU",
+      "rating": 1118,
+      "names": [
+        "Vanuatu"
+      ]
+    },
+    {
+      "rank": 170,
+      "code": "BM",
+      "rating": 1117,
+      "names": [
+        "Bermuda"
+      ]
+    },
+    {
+      "rank": 171,
+      "code": "SS",
+      "rating": 1109,
+      "names": [
+        "South Sudan"
+      ]
+    },
+    {
+      "rank": 172,
+      "code": "FJ",
+      "rating": 1104,
+      "names": [
+        "Fiji"
+      ]
+    },
+    {
+      "rank": 173,
+      "code": "HK",
+      "rating": 1101,
+      "names": [
+        "Hong Kong"
+      ]
+    },
+    {
+      "rank": 174,
+      "code": "GD",
+      "rating": 1098,
+      "names": [
+        "Grenada"
+      ]
+    },
+    {
+      "rank": 175,
+      "code": "AD",
+      "rating": 1080,
+      "names": [
+        "Andorra"
+      ]
+    },
+    {
+      "rank": 176,
+      "code": "MU",
+      "rating": 1073,
+      "names": [
+        "Mauritius"
+      ]
+    },
+    {
+      "rank": 176,
+      "code": "TD",
+      "rating": 1073,
+      "names": [
+        "Chad"
+      ]
+    },
+    {
+      "rank": 176,
+      "code": "BZ",
+      "rating": 1073,
+      "names": [
+        "Belize"
+      ]
+    },
+    {
+      "rank": 179,
+      "code": "SB",
+      "rating": 1054,
+      "names": [
+        "Solomon Islands",
+        "Solomon Isl"
+      ]
+    },
+    {
+      "rank": 180,
+      "code": "MF",
+      "rating": 1042,
+      "names": [
+        "Saint Martin"
+      ]
+    },
+    {
+      "rank": 181,
+      "code": "ST",
+      "rating": 1035,
+      "names": [
+        "Sao Tome and Principe",
+        "Sao Tome & Principe",
+        "Sao Tome/Principe",
+        "Sao Tome/Pr"
+      ]
+    },
+    {
+      "rank": 182,
+      "code": "KN",
+      "rating": 1029,
+      "names": [
+        "Saint Kitts and Nevis",
+        "St Kitts and Nevis",
+        "St Kitts/Nevis",
+        "St Kitts/N"
+      ]
+    },
+    {
+      "rank": 183,
+      "code": "GI",
+      "rating": 1011,
+      "names": [
+        "Gibraltar"
+      ]
+    },
+    {
+      "rank": 184,
+      "code": "JS",
+      "rating": 1005,
+      "names": [
+        "Somaliland"
+      ]
+    },
+    {
+      "rank": 185,
+      "code": "LC",
+      "rating": 1003,
+      "names": [
+        "Saint Lucia"
+      ]
+    },
+    {
+      "rank": 186,
+      "code": "EH",
+      "rating": 996,
+      "names": [
+        "Western Sahara",
+        "W Sahara"
+      ]
+    },
+    {
+      "rank": 187,
+      "code": "MM",
+      "rating": 984,
+      "names": [
+        "Myanmar"
+      ]
+    },
+    {
+      "rank": 188,
+      "code": "SO",
+      "rating": 979,
+      "names": [
+        "Somalia"
+      ]
+    },
+    {
+      "rank": 189,
+      "code": "AW",
+      "rating": 978,
+      "names": [
+        "Aruba"
+      ]
+    },
+    {
+      "rank": 190,
+      "code": "SX",
+      "rating": 975,
+      "names": [
+        "Sint Maarten"
+      ]
+    },
+    {
+      "rank": 191,
+      "code": "MS",
+      "rating": 972,
+      "names": [
+        "Montserrat"
+      ]
+    },
+    {
+      "rank": 192,
+      "code": "AF",
+      "rating": 961,
+      "names": [
+        "Afghanistan"
+      ]
+    },
+    {
+      "rank": 193,
+      "code": "GL",
+      "rating": 945,
+      "names": [
+        "Greenland"
+      ]
+    },
+    {
+      "rank": 194,
+      "code": "BD",
+      "rating": 942,
+      "names": [
+        "Bangladesh"
+      ]
+    },
+    {
+      "rank": 195,
+      "code": "DJ",
+      "rating": 940,
+      "names": [
+        "Djibouti"
+      ]
+    },
+    {
+      "rank": 196,
+      "code": "DM",
+      "rating": 934,
+      "names": [
+        "Dominica"
+      ]
+    },
+    {
+      "rank": 197,
+      "code": "PK",
+      "rating": 909,
+      "names": [
+        "Pakistan"
+      ]
+    },
+    {
+      "rank": 198,
+      "code": "MC",
+      "rating": 903,
+      "names": [
+        "Monaco"
+      ]
+    },
+    {
+      "rank": 199,
+      "code": "BB",
+      "rating": 898,
+      "names": [
+        "Barbados"
+      ]
+    },
+    {
+      "rank": 200,
+      "code": "AG",
+      "rating": 895,
+      "names": [
+        "Antigua and Barbuda",
+        "Antigua & Barbuda",
+        "Antigua/Barbuda",
+        "Antigua/Barb"
+      ]
+    },
+    {
+      "rank": 200,
+      "code": "LI",
+      "rating": 895,
+      "names": [
+        "Liechtenstein"
+      ]
+    },
+    {
+      "rank": 202,
+      "code": "NP",
+      "rating": 893,
+      "names": [
+        "Nepal"
+      ]
+    },
+    {
+      "rank": 203,
+      "code": "KH",
+      "rating": 871,
+      "names": [
+        "Cambodia"
+      ]
+    },
+    {
+      "rank": 204,
+      "code": "SC",
+      "rating": 853,
+      "names": [
+        "Seychelles"
+      ]
+    },
+    {
+      "rank": 205,
+      "code": "LK",
+      "rating": 836,
+      "names": [
+        "Sri Lanka"
+      ]
+    },
+    {
+      "rank": 206,
+      "code": "SM",
+      "rating": 825,
+      "names": [
+        "San Marino"
+      ]
+    },
+    {
+      "rank": 207,
+      "code": "TW",
+      "rating": 822,
+      "names": [
+        "Taiwan"
+      ]
+    },
+    {
+      "rank": 208,
+      "code": "BQ",
+      "rating": 817,
+      "names": [
+        "Bonaire"
+      ]
+    },
+    {
+      "rank": 209,
+      "code": "MV",
+      "rating": 801,
+      "names": [
+        "Maldives"
+      ]
+    },
+    {
+      "rank": 210,
+      "code": "KY",
+      "rating": 800,
+      "names": [
+        "Cayman Islands",
+        "Cayman Isl"
+      ]
+    },
+    {
+      "rank": 211,
+      "code": "HG",
+      "rating": 782,
+      "names": [
+        "Chagos Islands",
+        "Chagos Isl"
+      ]
+    },
+    {
+      "rank": 212,
+      "code": "TV",
+      "rating": 756,
+      "names": [
+        "Tuvalu"
+      ]
+    },
+    {
+      "rank": 213,
+      "code": "VG",
+      "rating": 743,
+      "names": [
+        "British Virgin Islands",
+        "Br Virgin Islands",
+        "Br Virgin Isl",
+        "Br Virgin I"
+      ]
+    },
+    {
+      "rank": 214,
+      "code": "EU",
+      "rating": 737,
+      "names": [
+        "Sint Eustatius",
+        "St Eustatius"
+      ]
+    },
+    {
+      "rank": 215,
+      "code": "LA",
+      "rating": 734,
+      "names": [
+        "Laos"
+      ]
+    },
+    {
+      "rank": 215,
+      "code": "TL",
+      "rating": 734,
+      "names": [
+        "East Timor"
+      ]
+    },
+    {
+      "rank": 217,
+      "code": "WS",
+      "rating": 728,
+      "names": [
+        "Samoa"
+      ]
+    },
+    {
+      "rank": 218,
+      "code": "MN",
+      "rating": 726,
+      "names": [
+        "Mongolia"
+      ]
+    },
+    {
+      "rank": 219,
+      "code": "BL",
+      "rating": 725,
+      "names": [
+        "Saint Barthelemy",
+        "St Barthelemy",
+        "St Barts"
+      ]
+    },
+    {
+      "rank": 220,
+      "code": "GU",
+      "rating": 706,
+      "names": [
+        "Guam"
+      ]
+    },
+    {
+      "rank": 221,
+      "code": "WF",
+      "rating": 699,
+      "names": [
+        "Wallis and Futuna",
+        "Wallis & Futuna",
+        "Wallis/Futuna"
+      ]
+    },
+    {
+      "rank": 222,
+      "code": "VA",
+      "rating": 692,
+      "names": [
+        "Vatican"
+      ]
+    },
+    {
+      "rank": 223,
+      "code": "AB",
+      "rating": 691,
+      "names": [
+        "Saba"
+      ]
+    },
+    {
+      "rank": 224,
+      "code": "BS",
+      "rating": 685,
+      "names": [
+        "Bahamas"
+      ]
+    },
+    {
+      "rank": 225,
+      "code": "PM",
+      "rating": 677,
+      "names": [
+        "Saint Pierre and Miquelon",
+        "St Pierre and Miquelon",
+        "St Pierre & Miquelon",
+        "St Pierre/Miquelon",
+        "St Pierre/Miquel",
+        "St Pierre/Miq",
+        "St Pierre/M"
+      ]
+    },
+    {
+      "rank": 226,
+      "code": "TC",
+      "rating": 657,
+      "names": [
+        "Turks and Caicos Islands",
+        "Turks and Caicos",
+        "Turks & Caicos",
+        "Turks/Caicos"
+      ]
+    },
+    {
+      "rank": 227,
+      "code": "AI",
+      "rating": 646,
+      "names": [
+        "Anguilla"
+      ]
+    },
+    {
+      "rank": 228,
+      "code": "TE",
+      "rating": 629,
+      "names": [
+        "Tibet"
+      ]
+    },
+    {
+      "rank": 229,
+      "code": "VI",
+      "rating": 628,
+      "names": [
+        "US Virgin Islands",
+        "US Virgin Isl"
+      ]
+    },
+    {
+      "rank": 230,
+      "code": "BT",
+      "rating": 623,
+      "names": [
+        "Bhutan"
+      ]
+    },
+    {
+      "rank": 231,
+      "code": "CK",
+      "rating": 622,
+      "names": [
+        "Cook Islands"
+      ]
+    },
+    {
+      "rank": 232,
+      "code": "MO",
+      "rating": 589,
+      "names": [
+        "Macao"
+      ]
+    },
+    {
+      "rank": 233,
+      "code": "CX",
+      "rating": 578,
+      "names": [
+        "Christmas Island",
+        "Christmas Isl",
+        "Christmas I"
+      ]
+    },
+    {
+      "rank": 234,
+      "code": "BN",
+      "rating": 572,
+      "names": [
+        "Brunei"
+      ]
+    },
+    {
+      "rank": 235,
+      "code": "FK",
+      "rating": 571,
+      "names": [
+        "Falkland Islands",
+        "Falkland Isl"
+      ]
+    },
+    {
+      "rank": 236,
+      "code": "FM",
+      "rating": 564,
+      "names": [
+        "FS Micronesia",
+        "FSM"
+      ]
+    },
+    {
+      "rank": 237,
+      "code": "MH",
+      "rating": 559,
+      "names": [
+        "Marshall Islands",
+        "Marshall Isl",
+        "Marshall I"
+      ]
+    },
+    {
+      "rank": 238,
+      "code": "KI",
+      "rating": 544,
+      "names": [
+        "Kiribati"
+      ]
+    },
+    {
+      "rank": 239,
+      "code": "TO",
+      "rating": 520,
+      "names": [
+        "Tonga"
+      ]
+    },
+    {
+      "rank": 240,
+      "code": "NU",
+      "rating": 496,
+      "names": [
+        "Niue"
+      ]
+    },
+    {
+      "rank": 241,
+      "code": "MP",
+      "rating": 432,
+      "names": [
+        "Northern Mariana Islands",
+        "Northern Marianas",
+        "N Marianas"
+      ]
+    },
+    {
+      "rank": 242,
+      "code": "CC",
+      "rating": 422,
+      "names": [
+        "Cocos Islands",
+        "Cocos Isl"
+      ]
+    },
+    {
+      "rank": 243,
+      "code": "PW",
+      "rating": 402,
+      "names": [
+        "Palau"
+      ]
+    },
+    {
+      "rank": 244,
+      "code": "AS",
+      "rating": 369,
+      "names": [
+        "Eastern Samoa",
+        "East Samoa"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-import "../globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
@@ -15,17 +14,26 @@ export const metadata: Metadata = {
   description: "Transparent, calibrated international football forecasts."
 };
 
-export default async function LocaleLayout({ children, params }: { children: ReactNode; params: Promise<{ locale: string }> }) {
+export default async function LocaleLayout({
+  children,
+  params
+}: {
+  children: ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   return (
-    <html lang={locale}>
-      <body>
-        <Header locale={locale} />
-        {children}
-        <ChatWidget locale={locale} />
-        <footer className="footer"><div className="container">Soccer Intelligence is independent and is not affiliated with FIFA. Live data may be delayed by its provider. Forecasts are uncertain and informational only.</div></footer>
-      </body>
-    </html>
+    <div lang={locale}>
+      <Header locale={locale} />
+      {children}
+      <ChatWidget locale={locale} />
+      <footer className="footer">
+        <div className="container">
+          Soccer Intelligence is independent and is not affiliated with FIFA. Live data may be delayed by its provider.
+          Forecasts are uncertain and informational only.
+        </div>
+      </footer>
+    </div>
   );
 }

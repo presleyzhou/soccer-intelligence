@@ -3,41 +3,11 @@
 import { Clock3, RefreshCw, ShieldCheck } from "lucide-react";
 import type { Locale } from "@wci/contracts";
 import { useCallback, useEffect, useMemo, useState } from "react";
-
-type SportsDbEvent = {
-  idEvent: string;
-  strTimestamp: string | null;
-  strEvent: string;
-  strHomeTeam: string;
-  strAwayTeam: string;
-  intHomeScore: string | null;
-  intAwayScore: string | null;
-  strStatus: string | null;
-  strGroup: string | null;
-  strVenue: string | null;
-  strCity: string | null;
-  strCountry: string | null;
-  strHomeTeamBadge: string | null;
-  strAwayTeamBadge: string | null;
-};
-
-type SportsDbResponse = { events: SportsDbEvent[] | null };
+import { fetchWorldCupDates, type SportsDbEvent, utcDateWithOffset } from "@/lib/client-football-data";
 type LoadState = "loading" | "live" | "error";
 
-const API_BASE = "https://www.thesportsdb.com/api/v1/json/123";
-const WORLD_CUP_LEAGUE_ID = "4429";
-
-function isoDate(date: Date): string {
-  return date.toISOString().slice(0, 10);
-}
-
 function datesAroundToday(daysBefore: number, daysAfter: number): string[] {
-  const today = new Date();
-  return Array.from({ length: daysBefore + daysAfter + 1 }, (_, index) => {
-    const date = new Date(today);
-    date.setUTCDate(today.getUTCDate() + index - daysBefore);
-    return isoDate(date);
-  });
+  return Array.from({ length: daysBefore + daysAfter + 1 }, (_, index) => utcDateWithOffset(index - daysBefore));
 }
 
 function formatKickoff(value: string | null, locale: Locale): string {
@@ -54,18 +24,11 @@ function formatKickoff(value: string | null, locale: Locale): string {
 function statusText(event: SportsDbEvent, locale: Locale): string {
   if (event.strStatus === "FT") return locale === "zh" ? "完场" : "Full time";
   if (event.strStatus === "HT") return locale === "zh" ? "半场" : "Half time";
-  if (event.strStatus === "1H" || event.strStatus === "2H")
-    return locale === "zh" ? "进行中" : "Live";
+  if (event.strStatus) return locale === "zh" ? "进行中" : "Live";
   return locale === "zh" ? "未开赛" : "Scheduled";
 }
 
-export function LiveMatchCentre({
-  locale,
-  compact = false
-}: {
-  locale: Locale;
-  compact?: boolean;
-}) {
+export function LiveMatchCentre({ locale, compact = false }: { locale: Locale; compact?: boolean }) {
   const [events, setEvents] = useState<SportsDbEvent[]>([]);
   const [state, setState] = useState<LoadState>("loading");
   const [updatedAt, setUpdatedAt] = useState<string>();
@@ -74,23 +37,7 @@ export function LiveMatchCentre({
     setState((current) => (current === "live" ? current : "loading"));
     try {
       const dates = datesAroundToday(compact ? 1 : 2, compact ? 3 : 5);
-      const payloads = await Promise.all(
-        dates.map(async (date) => {
-          const response = await fetch(
-            `${API_BASE}/eventsday.php?d=${date}&l=${WORLD_CUP_LEAGUE_ID}`,
-            { cache: "no-store" }
-          );
-          if (!response.ok) throw new Error(`TheSportsDB returned ${response.status}`);
-          return (await response.json()) as SportsDbResponse;
-        })
-      );
-      const unique = new Map<string, SportsDbEvent>();
-      payloads.flatMap((payload) => payload.events ?? []).forEach((event) => unique.set(event.idEvent, event));
-      setEvents(
-        [...unique.values()].sort((left, right) =>
-          (left.strTimestamp ?? "").localeCompare(right.strTimestamp ?? "")
-        )
-      );
+      setEvents(await fetchWorldCupDates(dates));
       setUpdatedAt(new Date().toISOString());
       setState("live");
     } catch {
@@ -120,8 +67,8 @@ export function LiveMatchCentre({
       <div className="notice live-notice">
         <ShieldCheck size={15} />
         {locale === "zh"
-          ? "赛程、比分和比赛状态来自 TheSportsDB 世界杯数据源，每 60 秒刷新。预测概率仅在真实模型通过发布门槛后显示。"
-          : "Fixtures, scores, and status come from TheSportsDB's World Cup feed and refresh every 60 seconds. Forecast probabilities appear only after a real model clears publication gates."}
+          ? "赛程、比分和比赛状态来自 ESPN 世界杯公共数据源，每 60 秒刷新。预测使用独立注明时间的 Elo 输入。"
+          : "Fixtures, scores, and status come from ESPN's public World Cup feed and refresh every 60 seconds. Forecasts use a separate timestamped Elo input."}
       </div>
       {state === "loading" ? (
         <p className="muted">{locale === "zh" ? "正在载入实时数据…" : "Loading live data..."}</p>
@@ -157,7 +104,7 @@ export function LiveMatchCentre({
                 {event.strHomeTeamBadge ? (
                   <span
                     className="live-team-badge"
-                    style={{ backgroundImage: `url("${event.strHomeTeamBadge}/tiny")` }}
+                    style={{ backgroundImage: `url("${event.strHomeTeamBadge}")` }}
                     aria-hidden="true"
                   />
                 ) : null}
@@ -171,7 +118,7 @@ export function LiveMatchCentre({
                 {event.strAwayTeamBadge ? (
                   <span
                     className="live-team-badge"
-                    style={{ backgroundImage: `url("${event.strAwayTeamBadge}/tiny")` }}
+                    style={{ backgroundImage: `url("${event.strAwayTeamBadge}")` }}
                     aria-hidden="true"
                   />
                 ) : null}
@@ -183,12 +130,13 @@ export function LiveMatchCentre({
       </div>
       {updatedAt ? (
         <p className="tiny muted source-time">
-          <Clock3 size={12} /> {locale === "zh" ? "获取时间" : "Fetched"}: {formatKickoff(updatedAt.slice(0, -1), locale)}
+          <Clock3 size={12} /> {locale === "zh" ? "获取时间" : "Fetched"}:{" "}
+          {formatKickoff(updatedAt.slice(0, -1), locale)}
         </p>
       ) : null}
       <a
         className="tiny muted"
-        href="https://www.thesportsdb.com/documentation"
+        href="https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
         target="_blank"
         rel="noreferrer"
       >

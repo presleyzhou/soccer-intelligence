@@ -33,10 +33,10 @@ export async function fetchWorldCupEvents(): Promise<{
 }> {
   const responses = await Promise.all(
     [-1, 0, 1, 2, 3].map(async (offset) => {
-      const response = await fetch(
-        `${SPORTS_DB_BASE}/eventsday.php?d=${dateString(offset)}&l=${WORLD_CUP_LEAGUE_ID}`,
-        { cache: "no-store", signal: AbortSignal.timeout(6000) }
-      );
+      const response = await fetch(`${SPORTS_DB_BASE}/eventsday.php?d=${dateString(offset)}&l=${WORLD_CUP_LEAGUE_ID}`, {
+        cache: "no-store",
+        signal: AbortSignal.timeout(6000)
+      });
       if (!response.ok) throw new Error(`TheSportsDB returned ${response.status}`);
       return (await response.json()) as EventsResponse;
     })
@@ -44,9 +44,7 @@ export async function fetchWorldCupEvents(): Promise<{
   const unique = new Map<string, LiveFootballEvent>();
   responses.flatMap((response) => response.events ?? []).forEach((event) => unique.set(event.idEvent, event));
   return {
-    data: [...unique.values()].sort((left, right) =>
-      (left.strTimestamp ?? "").localeCompare(right.strTimestamp ?? "")
-    ),
+    data: [...unique.values()].sort((left, right) => (left.strTimestamp ?? "").localeCompare(right.strTimestamp ?? "")),
     fetchedAt: new Date().toISOString(),
     source: "TheSportsDB"
   };
@@ -65,10 +63,24 @@ export async function fetchWorldCupEvent(id: string): Promise<LiveFootballEvent 
 
 export const liveSources = [
   {
+    id: "espn",
+    name: "ESPN public FIFA World Cup scoreboard",
+    category: "football",
+    status: "live",
+    url: "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
+  },
+  {
+    id: "world-football-elo",
+    name: "World Football Elo Ratings",
+    category: "model-input",
+    status: "daily-snapshot",
+    url: "https://www.eloratings.net/World"
+  },
+  {
     id: "thesportsdb",
     name: "TheSportsDB",
     category: "football",
-    status: "live",
+    status: "server-adapter",
     url: "https://www.thesportsdb.com/documentation"
   },
   {

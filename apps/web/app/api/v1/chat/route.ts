@@ -11,8 +11,8 @@ export async function POST(request: Request) {
       return json({ title: "Invalid chat request", status: 400 }, { status: 400 });
     const answer =
       body.language === "zh"
-        ? "Soccer Intelligence 当前使用 TheSportsDB 的世界杯实时赛程与比分，以及 Polymarket 公共市场数据。生产预测模型尚未发布，因此不会生成模拟胜率、晋级概率或冠军概率。"
-        : "Soccer Intelligence currently uses TheSportsDB for live World Cup fixtures and scores, plus Polymarket public market data. No production forecast model is published, so simulated win, advancement, or champion probabilities are not generated.";
+        ? "Soccer Intelligence 当前使用 ESPN 世界杯实时赛程与比分、World Football Elo Ratings 实力快照和 Polymarket 公共市场数据。首页提供 Elo、Poisson、Dixon-Coles 等权研究预测，但尚未完成本站滚动样本外校准。"
+        : "Soccer Intelligence uses ESPN for live World Cup fixtures and scores, World Football Elo Ratings for strength snapshots, and Polymarket public market data. The homepage provides an equal-weight Elo, Poisson, and Dixon-Coles research forecast that has not yet completed this site's rolling out-of-time calibration.";
     const response: ChatResponse = {
       answer,
       relatedMatches: [],
@@ -26,8 +26,8 @@ export async function POST(request: Request) {
       modelTimestamp: new Date().toISOString(),
       disclaimer:
         body.language === "zh"
-          ? "实时数据可能延迟；当前没有已发布的模型预测。"
-          : "Live data may be delayed; no model forecast is currently published."
+          ? "实时数据可能延迟；研究预测并非确定结果或博彩建议。"
+          : "Live data may be delayed; research forecasts are not certain results or betting advice."
     };
     return json(response, { headers: { "cache-control": "no-store" } });
   } catch {

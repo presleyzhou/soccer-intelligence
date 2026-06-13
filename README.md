@@ -13,7 +13,7 @@ Deployable bilingual platform for international football match probabilities, sc
 - Evidence-constrained bilingual chat API with a no-LLM fallback.
 - Docker, Compose, CI, tests and health/readiness endpoints.
 
-The public site uses TheSportsDB's documented free API for live FIFA World Cup fixtures, scores, and status, plus Polymarket's public read-only API for market data. If a live provider is unavailable, the UI shows no data rather than substituting simulations. Forecast probabilities and backtest metrics remain unpublished until a real, calibrated production model passes rolling out-of-time validation.
+The public site uses ESPN's public FIFA World Cup scoreboard for live fixtures, scores, and status, World Football Elo Ratings for timestamped team-strength inputs, and Polymarket's public read-only API for market data. The homepage publishes a transparent equal-weight Elo, Poisson, and Dixon-Coles research forecast. It is explicitly marked as not yet rolling out-of-time calibrated; production backtest claims remain unpublished.
 
 ## Local development
 
@@ -55,7 +55,7 @@ npm run db:push
 npm run db:seed
 ```
 
-The public match centre works without a private key through TheSportsDB's documented free API. Private provider keys activate additional authorized adapters; they never enable simulated data as a live fallback.
+The public match centre and research forecast work without a private key. Private provider keys activate additional authorized adapters; they never enable simulated data as a live fallback.
 
 ## Full container deployment
 
