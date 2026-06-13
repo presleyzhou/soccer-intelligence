@@ -9,7 +9,7 @@ export function isLocale(value: string): value is Locale {
 const copy = {
   en: {
     brand: "Soccer Intelligence",
-    tagline: "Live facts first. Forecasts only when verified.",
+    tagline: "Read the match. Forecast every possibility.",
     nav: {
       dashboard: "Dashboard",
       matches: "Matches",
@@ -35,7 +35,7 @@ const copy = {
   },
   zh: {
     brand: "Soccer Intelligence",
-    tagline: "实时事实优先，预测必须经过验证",
+    tagline: "读懂比赛，预测每一种可能",
     nav: {
       dashboard: "首页",
       matches: "比赛",
